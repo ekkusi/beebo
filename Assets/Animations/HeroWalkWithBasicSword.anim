@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero_walk_with_basic_sword
+  m_Name: HeroWalkWithBasicSword
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

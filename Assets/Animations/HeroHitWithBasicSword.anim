@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero_hit_with_basic_sword
+  m_Name: HeroHitWithBasicSword
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -22,20 +22,20 @@ AnimationClip:
     - time: 0
       value: {fileID: 3209886211268216791, guid: 429841095936e33c88fd0a25ae48ac87,
         type: 3}
-    - time: 0.083333336
+    - time: 0.125
       value: {fileID: 1719097398585210877, guid: 429841095936e33c88fd0a25ae48ac87,
         type: 3}
-    - time: 0.16666667
+    - time: 0.25
       value: {fileID: 469413883469954618, guid: 429841095936e33c88fd0a25ae48ac87,
         type: 3}
-    - time: 0.25
+    - time: 0.375
       value: {fileID: 4699828331903925164, guid: 429841095936e33c88fd0a25ae48ac87,
         type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 12
+  m_SampleRate: 8
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -59,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

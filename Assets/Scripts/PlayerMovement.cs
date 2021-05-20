@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     animationManager = GetComponent<AnimationManager>();
   }
 
-  // Update is called once per frame
+  // Update by physics changes is called once per frame
   void FixedUpdate()
   {
     Vector3 change = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
@@ -43,22 +43,14 @@ public class PlayerMovement : MonoBehaviour
     {
       animationManager.ChangeAnimationState(PlayerAnimationState.HeroIdle.ToString());
     }
-    // else
-    // {
-    //   walkAnimation.Stop();
-    // }
   }
 
   void MovePlayer(Vector3 change)
   {
-    // Move player, go slower if movement is bidirectional
-    // Vector3 vector = Vector3.Normalize();
-    // float speedChange = speed / (float)Math.Sqrt(Math.Pow(change.x, 2) + Math.Pow(change.y, 2));
     rigidBody.MovePosition(transform.position + Vector3.Normalize(change) * speed * Time.deltaTime);
 
     // Rotate player based on movement
     float rotateDegrees = (float)Math.Atan2(change.y, change.x) * (float)(360 / (2 * Math.PI));
-    // Vector3.Angle
     transform.eulerAngles = Vector3.forward * rotateDegrees;
 
   }

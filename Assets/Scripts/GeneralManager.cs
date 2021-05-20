@@ -5,29 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class GeneralManager : MonoBehaviour
 {
-    public GameObject player;
-    public Camera customCamera;
+    public string initialScene = "Village";
+    public string initialOutDoorwayName = "VillageStart";
+    public bool loadInitialScreenOnStart = true;
+    private static GeneralManager instance = null;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(player);
-        DontDestroyOnLoad(customCamera);
+        if (instance == null) {
+            instance = this;
+            DontDestroyOnLoad(this);
+            return;
+        }
+        Destroy(this.gameObject);
     }
     // Start is called before the first frame update
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void CustomLoadScene(string newScene, Vector3 newPlayerPos)
-    {
-        SceneManager.LoadScene(newScene);
-        player.transform.position = newPlayerPos;
+        if (loadInitialScreenOnStart) {
+            SceneLoader sceneLoader = GetComponent<SceneLoader>();
+            sceneLoader.CustomLoadScene(initialScene, initialOutDoorwayName);
+        }
     }
 }

@@ -6,75 +6,75 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Village.unity
+    path: Assets/Scenes/Fisander/Fisander.unity
     guid: eafaf1144b151ac40ab2548cf8f50432
   - enabled: 1
-    path: Assets/Scenes/ArmorRoom.unity
+    path: Assets/Scenes/Fisander/FisanderArmorRoom.unity
     guid: 6fa0ba506c9f77e48a0278e5e729cd1b
   - enabled: 1
-    path: Assets/Scenes/Bar.unity
+    path: Assets/Scenes/Fisander/FisanderBar.unity
     guid: 5b2b1d2a6be93c48c94ef4edf8f37d88
   - enabled: 1
     path: Assets/Scenes/BeeboTest.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/CornerRoom.unity
+    path: Assets/Scenes/Fisander/FisanderCornerRoom.unity
     guid: a0b26219198c8746ebe2b8b99a3f226d
   - enabled: 1
-    path: Assets/Scenes/Corridor.unity
+    path: Assets/Scenes/Fisander/FisanderCorridor.unity
     guid: aee2c07a328dc19bf8900d65252a8b83
   - enabled: 1
-    path: Assets/Scenes/FriendlyValley.unity
+    path: Assets/Scenes/Fisander/FisanderFriendlyValley.unity
     guid: 5fda607b759c0a3ed963ad3f62a94b4d
   - enabled: 1
-    path: Assets/Scenes/Hall.unity
+    path: Assets/Scenes/Fisander/FisanderHall.unity
     guid: b7f042a5a8b8b8db49d57e43b0ab8aa5
   - enabled: 1
-    path: Assets/Scenes/HallSecond.unity
+    path: Assets/Scenes/Fisander/FisanderHallSecondFloor.unity
     guid: 05c00bb00f3e500beaad77a35976897c
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/New Scene.unity
-    guid: 214967b6986a7c991ab972a5150d83f8
-  - enabled: 1
-    path: Assets/Scenes/Room1.unity
+    path: Assets/Scenes/Fisander/FisanderRoom1.unity
     guid: 55784280916c9d132a873b1ca6931212
   - enabled: 1
-    path: Assets/Scenes/Room2.unity
+    path: Assets/Scenes/Fisander/FisanderRoom2.unity
     guid: 8e7bba003d7e44e3db7042e13f4ada98
   - enabled: 1
-    path: Assets/Scenes/Room3.unity
+    path: Assets/Scenes/Fisander/FisanderRoom3.unity
     guid: c7b85f9aa7a55bbd187241919160bb40
   - enabled: 1
-    path: Assets/Scenes/Room4.unity
+    path: Assets/Scenes/Fisander/FisanderRoom4.unity
     guid: 622d64ad49ad27f33882455a7d20f230
   - enabled: 1
-    path: Assets/Scenes/Room5.unity
+    path: Assets/Scenes/Fisander/FisanderRoom5.unity
     guid: 3e14927c831da063e8e5e8e26e86f346
   - enabled: 1
-    path: Assets/Scenes/Room6.unity
+    path: Assets/Scenes/Fisander/FisanderRoom6.unity
     guid: 84c70467e98746e15bccb4659f1e3192
   - enabled: 1
-    path: Assets/Scenes/Room7.unity
+    path: Assets/Scenes/Fisander/FisanderRoom7.unity
     guid: 93ca350e9eb5bd4dfaec0b348f84155f
   - enabled: 1
-    path: Assets/Scenes/Room8.unity
+    path: Assets/Scenes/Fisander/FisanderRoom8.unity
     guid: 61c977fc8f15fcd3a93b0188fffed5f9
   - enabled: 1
-    path: Assets/Scenes/Room9.unity
+    path: Assets/Scenes/Fisander/FisanderRoom9.unity
     guid: 1f2881722f81ee43aa81a9340ee7da38
   - enabled: 1
-    path: Assets/Scenes/Room10.unity
+    path: Assets/Scenes/Fisander/FisanderAlchemyRoom1.unity
     guid: 58fea7ff2cc3dd6a9867b5c49a7bc9f7
   - enabled: 1
-    path: Assets/Scenes/Room11.unity
+    path: Assets/Scenes/Fisander/FisanderRoom11.unity
     guid: e5c3b006785fb9c07b7cde5e75d8efa9
   - enabled: 1
-    path: Assets/Scenes/StoreRoom.unity
+    path: Assets/Scenes/Fisander/FisanderAlchemyRoom.unity
     guid: ebc2210bb93face9a94a468c060b6f9d
   - enabled: 1
-    path: Assets/Scenes/TopRoom.unity
+    path: Assets/Scenes/Fisander/FisanderTopRoom.unity
     guid: da577dc7ed6fe120586b4718be60bea9
   - enabled: 1
-    path: Assets/Scenes/WeaponRoom.unity
+    path: Assets/Scenes/Fisander/FisanderWeaponRoom.unity
     guid: 47e894ce7bfdcee739864985257afc0b
   m_configObjects: {}

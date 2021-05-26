@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MerchantManager : MonoBehaviour
+public class Merchant : MonoBehaviour, INPC
 {
-    // Start is called before the first frame update
-    void Start()
+    public MerchantInventoryObject inventory;
+
+    public void Interact()
+    {
+        Debug.Log("Interacting with merchant: " + this.name);
+    }
+
+  // Start is called before the first frame update
+  void Start()
     {
         
     }

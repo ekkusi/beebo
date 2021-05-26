@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerCollision : MonoBehaviour
 {
     public SceneLoader sceneLoader;
+    
+    private bool isColliding;
 
     private void OnTriggerEnter2D(Collider2D other) {
         // SceneManager.LoadScene(other.name);
@@ -18,5 +20,11 @@ public class PlayerCollision : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+   }
+
+    private void OnCollisionExit2D(Collision2D collision) {
     }
 }

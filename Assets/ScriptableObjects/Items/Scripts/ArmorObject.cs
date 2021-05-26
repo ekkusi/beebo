@@ -16,7 +16,7 @@ public class ArmorObject : EquipmentObject
 {
     public ArmorType armorType;
     public void Awake() {
-        itemType = ItemType.Armor;
+        itemType = CustomItemType.Armor;
         armorType = ArmorType.Chest;
     }
 }

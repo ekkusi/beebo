@@ -13,7 +13,7 @@ public class WeaponObject : EquipmentObject
     public WeaponType weaponType;
     public float attackSpeed = 1f;
     public void Awake() {
-        itemType = ItemType.Weapon;
+        itemType = CustomItemType.Weapon;
         weaponType = WeaponType.Sword;
     }
 }

@@ -9,7 +9,6 @@ public class SceneLoader : MonoBehaviour
     private string nextExitDoorwayName;
     public void CustomLoadScene(string newScene, string sceneExitDoorwayName)
     {
-        Debug.Log("Loading Scene");
         nextExitDoorwayName = sceneExitDoorwayName;
         SceneManager.LoadScene(newScene);
         // player.transform.position = newPlayerPos;
@@ -18,18 +17,15 @@ public class SceneLoader : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        Debug.Log("OnEnable");
     }
  
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        Debug.Log("OnDisable");
     }
  
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded");
         GameObject[] exitDoorways = GameObject.FindGameObjectsWithTag("ExitDoorway");
         Vector3? newPos = null;
         foreach (GameObject exitDoorway in exitDoorways) {

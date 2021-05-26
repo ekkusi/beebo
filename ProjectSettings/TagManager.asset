@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ExitDoorway
   - EnterDoorway
+  - Merchant
+  - NPC
   layers:
   - Default
   - TransparentFX

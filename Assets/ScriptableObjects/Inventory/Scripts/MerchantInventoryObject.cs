@@ -7,10 +7,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Merchant Inventory Object", menuName = "Inventory System/Merchant Inventory")]
 public class MerchantInventoryObject : InventoryObject<MerchantInventorySlot>
 {
+  private const int MAX_INVENTORY_SIZE = 20;
+  public MerchantInventoryObject() : base(MAX_INVENTORY_SIZE)
+  {
+  }
 }
 
 [Serializable]
-public class MerchantInventorySlot : IInventorySlot
+public class MerchantInventorySlot : InventorySlot
 {
 
   public int price; 

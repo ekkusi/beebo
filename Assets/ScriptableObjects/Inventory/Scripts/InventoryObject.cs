@@ -4,12 +4,11 @@ using UnityEngine;
 using NaughtyAttributes;
 using UnityEditor;
 
-// [Serializable]
-// public class InventorySlotDict : SerializableDictionary<string, IInventorySlot>{}
 [Serializable]
 public abstract class InventoryObject<SlotType> : ScriptableObject where SlotType : InventorySlot 
 {
     private int maxSize; 
+    public int MaxSize { get { return maxSize; } }
     // [ReorderableList]
     [SerializeField]
     private List<SlotType> slots; 
@@ -20,17 +19,20 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
     }
 
     public void AddItem(SlotType newSlot) {
-        SlotType matchingItem = slots.Find((slot) => slot.item.name == newSlot.item.name);
-        if (matchingItem != null) {
-            matchingItem.amount += newSlot.amount;
+        SlotType matchingSlot = slots.Find((slot) => slot.item.name == newSlot.item.name);
+        if (matchingSlot != null && !matchingSlot.item.isSingleSlot) {
+            matchingSlot.amount += newSlot.amount;
         } else if (slots.Count <= maxSize) {
             slots.Add(newSlot);
         } else {
             Debug.LogWarning("Inventory is already full with " + slots.Count + " items.");
         }
     }
+    public void RemoveItem(string itemName) {
+        slots.Remove(slots.Find((slot) => slot.item.name == itemName));
+    }
     
-    public void SubstractItemAmount(string itemName, int amount = 1) {
+    public void SubstractAmountOrRemove(string itemName, int amount = 1) {
         SlotType matchingItem = slots.Find((slot) => slot.item.name == itemName);
         if (matchingItem != null) {
             matchingItem.amount -= amount;
@@ -42,6 +44,7 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         }
     }
 
+
     public List<SlotType> GetItems() {
         List<SlotType> notNullSlots = new List<SlotType>();
         foreach (SlotType slot in slots) {
@@ -51,15 +54,11 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         }
         return notNullSlots;
     }
-
 }
 
 
-[Serializable]
 public class InventorySlot {
-    [SerializeField]
     public ItemObject item; 
-    [SerializeField]
+    [DrawIf("item.isSingleSlot", false, ComparisonType.Equals)]
     public int amount; 
-
 }

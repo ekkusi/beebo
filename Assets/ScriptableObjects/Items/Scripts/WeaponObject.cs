@@ -12,8 +12,10 @@ public class WeaponObject : EquipmentObject
 {
     public WeaponType weaponType;
     public float attackSpeed = 1f;
-    public void Awake() {
-        itemType = CustomItemType.Weapon;
+    new public void Awake() {
+        base.Awake();
+        equipmentSlot = EquipmentSlot.WeaponMainHand;
         weaponType = WeaponType.Sword;
     }
+
 }

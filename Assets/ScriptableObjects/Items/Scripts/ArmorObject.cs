@@ -15,8 +15,13 @@ public enum ArmorType {
 public class ArmorObject : EquipmentObject
 {
     public ArmorType armorType;
-    public void Awake() {
-        itemType = CustomItemType.Armor;
+
+    new public void Awake() {
+        base.Awake();
         armorType = ArmorType.Chest;
+    }
+
+    public void OnValidate() {
+        equipmentSlot = (EquipmentSlot)armorType;
     }
 }

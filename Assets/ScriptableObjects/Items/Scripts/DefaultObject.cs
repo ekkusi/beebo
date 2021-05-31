@@ -6,6 +6,6 @@ using UnityEngine;
 public class DefaultObject : ItemObject
 {
     public void Awake() {
-        itemType = CustomItemType.Default;
+        itemType = ItemType.Default;
     }
 }

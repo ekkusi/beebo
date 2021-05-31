@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerCollision))]
 public class PlayerInteraction : MonoBehaviour
 {
     private PlayerCollision collision;
@@ -15,5 +16,10 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    void Interact(INPC npc) {
+        npc.Interact();
     }
 }

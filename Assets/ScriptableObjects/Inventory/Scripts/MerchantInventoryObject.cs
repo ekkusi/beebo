@@ -8,9 +8,7 @@ using UnityEngine;
 public class MerchantInventoryObject : InventoryObject<MerchantInventorySlot>
 {
   private const int MAX_INVENTORY_SIZE = 20;
-  public MerchantInventoryObject() : base(MAX_INVENTORY_SIZE)
-  {
-  }
+  public MerchantInventoryObject() : base(MAX_INVENTORY_SIZE) { }
 }
 
 [Serializable]

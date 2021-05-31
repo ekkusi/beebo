@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CustomItemType {
+public enum ItemType {
     Default,
-    Armor,
-    Weapon
+    Equipment
 }
 [Serializable]
 public abstract class ItemObject : ScriptableObject {
     public Sprite sprite;
-    public CustomItemType itemType;
+    public ItemType itemType;
     [TextArea(15, 20)]
     public string description;
+    public bool isSingleSlot = false;
 }

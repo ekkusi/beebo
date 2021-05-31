@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventoryManager : MonoBehaviour
+public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
 {
-    public PlayerInventoryObject inventory;
-    private PlayerInventoryPanelManager panelManager;
+    [SerializeField]
+    private PlayerInventoryObject playerInventory;
 
-    void Start() {
-        panelManager = GetComponentInChildren<PlayerInventoryPanelManager>(true);
+    public override void InitializeInventory()
+    {
+        inventory = playerInventory;
     }
 
-    void Update() {
+    new void Start() {
+        base.Start();
+        inventoryPanel.gameObject.SetActive(false);
+    }
+
+    new void Update() {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.B))
         {
-            // Debug.Log(panelManager.);
-            panelManager.gameObject.SetActive(!panelManager.gameObject.activeInHierarchy);
+            inventoryPanel.gameObject.SetActive(!inventoryPanel.gameObject.activeInHierarchy);
         }
     }
 }

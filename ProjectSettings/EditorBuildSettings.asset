@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fisander/FisanderBar.unity
     guid: 5b2b1d2a6be93c48c94ef4edf8f37d88
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BeeboTest.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -62,7 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fisander/FisanderRoom9.unity
     guid: 1f2881722f81ee43aa81a9340ee7da38
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Fisander/FisanderAlchemyRoom1.unity
     guid: 58fea7ff2cc3dd6a9867b5c49a7bc9f7
   - enabled: 1

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerEquipmentManager : MonoBehaviour
 {
-    Dictionary<EquipmentSlot, EquipmentObject> equippedItems = new Dictionary<EquipmentSlot, EquipmentObject>();
     public RectTransform equipmentPanel;
     private PlayerInventoryManager inventoryManager; 
 
@@ -22,25 +21,47 @@ public class PlayerEquipmentManager : MonoBehaviour
         }
     }
 
-    void EquipItem(EquipmentObject item) {
+    public void EquipItem(EquipmentObject item) {
         EquipmentSlot slot = item.GetSlot();
+        Dictionary<EquipmentSlot, EquipmentObject> equippedItems = GetEquippedItems();
         if (equippedItems.ContainsKey(slot)) {
             ItemObject currentItem = equippedItems[slot];
-            inventoryManager.inventory.RemoveItem(item.name);
-            equippedItems[slot] = item;
+            inventoryManager.RemoveItem(item.name);
             inventoryManager.inventory.AddItem(new PlayerInventorySlot(item));
         } else {
-            inventoryManager.inventory.RemoveItem(item.name);
-            equippedItems.Add(slot, item);
+            inventoryManager.RemoveItem(item.name);
+        }
+        FindAndEquipSlot(item);
+    }
+
+    public void FindAndEquipSlot(EquipmentObject item) {
+        EquipmentSlot slot = item.GetSlot();
+        PlayerEquipmentSlot[] slots = equipmentPanel.GetComponentsInChildren<PlayerEquipmentSlot>();
+        foreach (PlayerEquipmentSlot it in slots) {
+            if (it.slot == slot) {
+                Debug.Log("Equipping slot " + slot + " with item: " + item.name);
+                it.Equip(item);
+            }
+        }
+    }
+    public void FindAndUnEquipSlot(EquipmentObject item) {
+        EquipmentSlot slot = item.GetSlot();
+        PlayerEquipmentSlot[] slots = equipmentPanel.GetComponentsInChildren<PlayerEquipmentSlot>();
+        foreach (PlayerEquipmentSlot it in slots) {
+            if (it.slot == slot) {
+                it.UnEquip();
+            }
         }
     }
 
-    void UnEquipItem(EquipmentSlot slot) {
-        EquipmentObject item = equippedItems[slot];
+    public void UnEquipItem(EquipmentSlot slot) {
+        EquipmentObject item = GetEquippedItems()[slot];
         if (item != null) {
-            if (inventoryManager.inventory.GetItems().Count >= inventoryManager.inventory.MaxSize) {
-                equippedItems.Remove(slot);
+            int itemsCount = inventoryManager.inventory.GetItems().Count;
+            if (itemsCount < inventoryManager.inventory.MaxSize) {
+                FindAndUnEquipSlot(item);
                 inventoryManager.inventory.AddItem(new PlayerInventorySlot(item));
+                Debug.Log("Items count after unequip " + inventoryManager.inventory.GetItems().Count);
             } else {
                 // TODO: Create general logging UI to user
                 Debug.LogError("Cannot unequip item " + item.name + " because your inventory is full!");
@@ -49,6 +70,16 @@ public class PlayerEquipmentManager : MonoBehaviour
         } else {
             Debug.LogError("Cannot unequip item from slot " + slot + " because there is no item to remove.");
         }
+    }
 
+    public Dictionary<EquipmentSlot, EquipmentObject> GetEquippedItems() {
+        Dictionary<EquipmentSlot, EquipmentObject> items = new Dictionary<EquipmentSlot, EquipmentObject>();
+        PlayerEquipmentSlot[] slots = equipmentPanel.GetComponentsInChildren<PlayerEquipmentSlot>();
+        foreach (PlayerEquipmentSlot it in slots) {
+            if (it.equippedItem != null) {
+                items.Add(it.slot, it.equippedItem);
+            }
+        }
+        return items;
     }
 }

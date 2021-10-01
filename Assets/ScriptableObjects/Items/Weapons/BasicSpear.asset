@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c32c19ed450a4ccc9219efa4788438b, type: 3}
-  m_Name: New Weapon Object
+  m_Name: BasicSpear
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 859897d15a17d13ee8ed43cee9b638f1, type: 3}
-  itemType: 2
+  itemType: 1
   description: A basic spear
+  isSingleSlot: 1
   attackBonus: 20
   defenseBonus: 0
   weaponType: 2

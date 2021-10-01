@@ -15,6 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 25acfe00331deb4cc8860ce199f659d2, type: 3}
   itemType: 1
   description: Basic pair of pants
+  isSingleSlot: 1
   attackBonus: 0
   defenseBonus: 10
   armorType: 4

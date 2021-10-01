@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraRunner : MonoBehaviour
 {
   public Transform player;
-  public float zoom = 5f;
+  public float zoom = 3f;
 
   void Start()
   {

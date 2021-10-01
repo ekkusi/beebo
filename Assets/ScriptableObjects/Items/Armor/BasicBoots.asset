@@ -18,4 +18,4 @@ MonoBehaviour:
   isSingleSlot: 1
   attackBonus: 0
   defenseBonus: 5
-  armorType: 3
+  armorType: 1

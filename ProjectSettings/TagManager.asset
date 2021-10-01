@@ -8,6 +8,7 @@ TagManager:
   - EnterDoorway
   - Merchant
   - NPC
+  - GroundItem
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 3287198033
     locked: 0

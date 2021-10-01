@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
+
+public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>     
 {
     [SerializeField]
     private PlayerInventoryObject playerInventory;
@@ -19,9 +20,16 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
 
     new void Update() {
         base.Update();
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             inventoryPanel.gameObject.SetActive(!inventoryPanel.gameObject.activeInHierarchy);
         }
+    }
+
+    public override GameObject CreateItemObject(PlayerInventorySlot slot) {
+        GameObject obj = base.CreateItemObject(slot);
+        PlayerInventoryItemManager itemManager = obj.AddComponent<PlayerInventoryItemManager>();
+        itemManager.slot = slot;
+        return obj;
     }
 }

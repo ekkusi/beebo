@@ -15,6 +15,7 @@ public class TooltipManager : MonoBehaviour
   private TextMeshProUGUI tmPro;
   private RectTransform backgroundRect;
   private RectTransform containerRect;
+  private Vector3 tooltipPosition;
   void Awake()
   {
     _instance = this;
@@ -35,10 +36,13 @@ public class TooltipManager : MonoBehaviour
     backgroundRect.sizeDelta = new Vector2(size.x + tmPro.margin.x + tmPro.margin.z, size.y + tmPro.margin.y + tmPro.margin.w);
   }
 
-  private void ShowTooltip_private(string text)
+  private void ShowTooltip_private(string text, Vector3 position)
   {
-    backgroundRect.gameObject.SetActive(true);
-    tmPro.gameObject.SetActive(true);
+    tooltipPosition = position;
+    if (!backgroundRect.gameObject.activeInHierarchy) {
+      backgroundRect.gameObject.SetActive(true);
+      tmPro.gameObject.SetActive(true);
+    }
     SetText(text);
   }
 
@@ -55,30 +59,44 @@ public class TooltipManager : MonoBehaviour
     {
       _instance = this;
     }
-    Vector2 anchoredPosition = Input.mousePosition / canvasRect.localScale.x;
+    
+    if (tooltipPosition != null) {
 
-    // Don't go over right of screen
-    if (anchoredPosition.x + backgroundRect.rect.width > canvasRect.rect.width)
-    {
-      anchoredPosition.x = canvasRect.rect.width - backgroundRect.rect.width;
+      Vector2 anchoredPosition = tooltipPosition / canvasRect.localScale.x;
+
+      // Don't go over right of screen
+      if (anchoredPosition.x + backgroundRect.rect.width > canvasRect.rect.width)
+      {
+        anchoredPosition.x = canvasRect.rect.width - backgroundRect.rect.width;
+      }
+
+      // Don't go over top of screen
+      if (anchoredPosition.y + backgroundRect.rect.height > canvasRect.rect.height)
+      {
+        anchoredPosition.y = canvasRect.rect.height - backgroundRect.rect.height;
+      }
+
+      containerRect.anchoredPosition = anchoredPosition;
     }
-
-    // Don't go over top of screen
-    if (anchoredPosition.y + backgroundRect.rect.height > canvasRect.rect.height)
-    {
-      anchoredPosition.y = canvasRect.rect.height - backgroundRect.rect.height;
-    }
-
-    containerRect.anchoredPosition = anchoredPosition;
   }
 
   public static void ShowtoolTip(string text)
   {
-    _instance.ShowTooltip_private(text);
+    _instance.ShowTooltip_private(text, Input.mousePosition);
+  }
+
+  public static void ShowtoolTip(string text, Vector3 position) 
+  {
+    _instance.ShowTooltip_private(text, position);
   }
 
   public static void HideTooltip()
   {
     _instance.HideTooltip_private();
+  }
+
+  public static bool IsActive() {
+    RectTransform backgroundRect = _instance.transform.Find("Background").GetComponent<RectTransform>();
+    return backgroundRect.gameObject.activeInHierarchy;
   }
 }

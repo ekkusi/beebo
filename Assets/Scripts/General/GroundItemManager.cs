@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class GroundItemManager : MonoBehaviour
+public class GroundItemManager : MonoBehaviour, IInteractionable
 {
   public ItemObject item;
   public int amount = 1;
   private SpriteRenderer spriteRenderer;
+  private PlayerInventoryManager inventoryManager;
+
+  void Start() {
+    inventoryManager = GameObject.Find("PlayerInventory").GetComponent<PlayerInventoryManager>();
+  }
   void OnValidate()
   {
     // Remove error coming when playing
@@ -29,5 +34,11 @@ public class GroundItemManager : MonoBehaviour
   public void OnMouseExit()
   {
     TooltipManager.HideTooltip();
+  }
+
+  public void Interact()
+  {
+    inventoryManager.inventory.AddItem(new PlayerInventorySlot(item, amount));
+    Destroy(gameObject);
   }
 }

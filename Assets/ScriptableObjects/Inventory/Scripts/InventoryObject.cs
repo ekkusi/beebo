@@ -18,26 +18,42 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         slots = new List<SlotType>(new SlotType[maxSize]);
     }
 
+    void OnValidate() {
+        foreach (SlotType slot in slots) {
+            if (slot.item != null) {
+                if (slot.item.isSingleSlot || slot.amount <= 0) {
+                    slot.amount = 1;
+                }
+            }
+        }
+    }
+
     public void AddItem(SlotType newSlot) {
-        SlotType matchingSlot = slots.Find((slot) => slot.item.name == newSlot.item.name);
+        List<SlotType> notNullSlots = GetItems();
+        SlotType matchingSlot = notNullSlots.Find((slot) => slot.item.name == newSlot.item.name);
         if (matchingSlot != null && !matchingSlot.item.isSingleSlot) {
             matchingSlot.amount += newSlot.amount;
-        } else if (slots.Count <= maxSize) {
-            slots.Add(newSlot);
+        } else if (notNullSlots.Count <= maxSize) {
+            slots[notNullSlots.Count] = newSlot;
         } else {
             Debug.LogWarning("Inventory is already full with " + slots.Count + " items.");
         }
     }
     public void RemoveItem(string itemName) {
-        slots.Remove(slots.Find((slot) => slot.item.name == itemName));
+        List<SlotType> notNullSlots = GetItems();
+        SlotType matchingSlot = notNullSlots.Find((slot) => slot.item.name == itemName);
+        if (matchingSlot != null) {
+            matchingSlot.item = null;
+        }
     }
     
     public void SubstractAmountOrRemove(string itemName, int amount = 1) {
-        SlotType matchingItem = slots.Find((slot) => slot.item.name == itemName);
+        List<SlotType> notNullSlots = GetItems();
+        SlotType matchingItem = notNullSlots.Find((slot) => slot.item.name == itemName);
         if (matchingItem != null) {
             matchingItem.amount -= amount;
             if (matchingItem.amount <= 0) {
-                slots.Remove(matchingItem);
+                RemoveItem(itemName);
             }
         } else {
             Debug.LogError("No matching item found in inventory of item: " + itemName);
@@ -59,6 +75,5 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
 
 public class InventorySlot {
     public ItemObject item; 
-    [DrawIf("item.isSingleSlot", false, ComparisonType.Equals)]
-    public int amount; 
+    public int amount = 1; 
 }

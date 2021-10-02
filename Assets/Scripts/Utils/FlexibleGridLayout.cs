@@ -56,11 +56,11 @@ public class FlexibleGridLayout : LayoutGroup
     public override void CalculateLayoutInputVertical()
     {
         base.CalculateLayoutInputHorizontal();
-        enableRowsEditing = fitType == FitType.FixedBoth || fitType == FitType.FixedRows;
-        enableColumnsEditing = fitType == FitType.FixedBoth && fitType == FitType.FixedColumns;
+        enableRowsEditing = fitType == FitType.FixedBoth || fitType == FitType.FixedRows;
+        enableColumnsEditing = fitType == FitType.FixedBoth && fitType == FitType.FixedColumns;
 
 
-        if(fitType == FitType.Width || fitType == FitType.Height || fitType == FitType.Uniform)
+        if (fitType == FitType.Width || fitType == FitType.Height || fitType == FitType.Uniform)
         {
             fitX = true;
             fitY = true;
@@ -68,11 +68,13 @@ public class FlexibleGridLayout : LayoutGroup
             rows = Mathf.CeilToInt(sqrRt);
             columns = Mathf.CeilToInt(sqrRt);
             disableSizeEditing = true;
-        } else {
+        }
+        else
+        {
             disableSizeEditing = fitType == FitType.FixedBoth;
         }
 
-        if(fitType == FitType.Width || fitType == FitType.FixedColumns || fitType == FitType.Uniform)
+        if (fitType == FitType.Width || fitType == FitType.FixedColumns || fitType == FitType.Uniform)
         {
             rows = Mathf.CeilToInt(transform.childCount / (float)columns);
         }
@@ -80,10 +82,13 @@ public class FlexibleGridLayout : LayoutGroup
         {
             columns = Mathf.CeilToInt(transform.childCount / (float)rows);
         }
-        if (fitType != FitType.FixedBoth && fitType != FitType.FixedColumns) {
+        if (fitType != FitType.FixedBoth && fitType != FitType.FixedColumns)
+        {
             squareCellSize = false;
             enableSquareCellSizeOption = false;
-        } else {
+        }
+        else
+        {
             enableSquareCellSizeOption = true;
         }
 
@@ -97,11 +102,13 @@ public class FlexibleGridLayout : LayoutGroup
         cellSize.y = fitY ? cellHeight : cellSize.y;
 
 
-        if (fitType == FitType.FixedColumns && squareCellSize) {
+        if (fitType == FitType.FixedColumns && squareCellSize)
+        {
             cellSize.y = cellSize.x;
-        } 
+        }
 
-        if (fitType == FitType.FixedBoth && squareCellSize) {
+        if (fitType == FitType.FixedBoth && squareCellSize)
+        {
             autoSpacing = true;
             float innerWidth = parentWidth - padding.left - padding.right;
             float innerHeight = parentHeight - padding.top - padding.bottom;
@@ -112,14 +119,16 @@ public class FlexibleGridLayout : LayoutGroup
 
             spacing.x = (innerWidth - cellSize.x * columns) / (columns - 1);
             spacing.y = (innerHeight - cellSize.y * rows) / (rows - 1);
-        } else {
+        }
+        else
+        {
             autoSpacing = false;
         }
 
         int columnCount;
         int rowCount;
 
-        for(int i = 0; i < rectChildren.Count; i ++)
+        for (int i = 0; i < rectChildren.Count; i++)
         {
             rowCount = i / columns;
             columnCount = i % columns;

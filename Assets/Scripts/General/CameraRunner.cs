@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CameraRunner : MonoBehaviour
 {
-  public Transform player;
-  public float zoom = 3f;
+    public Transform player;
+    public float zoom = 3f;
 
-  void Start()
-  {
-      Camera.main.orthographicSize = zoom;
-  }
+    void Start()
+    {
+        Camera.main.orthographicSize = zoom;
+    }
 
-  void Update () 
-  {
-      transform.position = new Vector3 (player.position.x , player.position.y , -10); // Camera follows the player with specified offset position
+    void Update()
+    {
+        transform.position = new Vector3(player.position.x, player.position.y, -10); // Camera follows the player with specified offset position
 
-      // camera.fieldOfView = 5;
-  }
+        // camera.fieldOfView = 5;
+    }
 }

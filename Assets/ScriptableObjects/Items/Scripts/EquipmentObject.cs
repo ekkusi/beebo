@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EquipmentSlot {
+public enum EquipmentSlot
+{
     Chest,
     Boots,
     Helmet,
@@ -20,12 +21,14 @@ public abstract class EquipmentObject : ItemObject
     [ReadOnly]
     protected EquipmentSlot equipmentSlot;
 
-    public void Awake() {
+    public void Awake()
+    {
         isSingleSlot = true;
         itemType = ItemType.Equipment;
     }
-    
-    public EquipmentSlot GetSlot() {
+
+    public EquipmentSlot GetSlot()
+    {
         return equipmentSlot;
     }
 }

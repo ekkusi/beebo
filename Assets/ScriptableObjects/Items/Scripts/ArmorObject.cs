@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ArmorType {
+public enum ArmorType
+{
     Chest,
     Boots,
     Helmet,
@@ -16,12 +17,14 @@ public class ArmorObject : EquipmentObject
 {
     public ArmorType armorType;
 
-    new public void Awake() {
+    new public void Awake()
+    {
         base.Awake();
         armorType = ArmorType.Chest;
     }
 
-    public void OnValidate() {
+    public void OnValidate()
+    {
         equipmentSlot = (EquipmentSlot)armorType;
     }
 }

@@ -53,5 +53,9 @@
         "temp/":true,
         "Temp/":true
     },
-    "omnisharp.useGlobalMono": "always"
+    "omnisharp.useGlobalMono": "always",
+    "editor.formatOnSave": true,
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
+    }
 }

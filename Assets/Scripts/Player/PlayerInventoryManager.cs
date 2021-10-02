@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>     
+public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
 {
     [SerializeField]
     private readonly PlayerInventoryObject playerInventory;
@@ -13,12 +13,14 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
         inventory = playerInventory;
     }
 
-    new void Start() {
+    new void Start()
+    {
         base.Start();
         inventoryPanel.gameObject.SetActive(false);
     }
 
-    new void Update() {
+    new void Update()
+    {
         base.Update();
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -26,7 +28,8 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
         }
     }
 
-    public override GameObject CreateItemObject(PlayerInventorySlot slot) {
+    public override GameObject CreateItemObject(PlayerInventorySlot slot)
+    {
         GameObject obj = base.CreateItemObject(slot);
         PlayerInventoryItemManager itemManager = obj.AddComponent<PlayerInventoryItemManager>();
         itemManager.slot = slot;

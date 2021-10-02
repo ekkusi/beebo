@@ -19,25 +19,30 @@ public class PlayerInventoryItemManager : MonoBehaviour, IPointerClickHandler //
     {
         if (
             EventUtils.IsPointerOverGameObject(gameObject)
-        ) {
+        )
+        {
             isHovering = true;
             string message = slot.item.itemType == ItemType.Equipment ? string.Format(string.Format("EQUIP\n{0} \n", slot.item.name)) : slot.item.name;
             TooltipManager.ShowtoolTip(message);
-        } else if (isHovering) {
+        }
+        else if (isHovering)
+        {
             isHovering = false;
             TooltipManager.HideTooltip();
         }
     }
 
-  public void OnPointerClick(PointerEventData eventData) {
-      Debug.Log("Clicked");
-      if (slot.item.itemType == ItemType.Equipment) {
-        equipmentManager.EquipItem((EquipmentObject)slot.item);
-        TooltipManager.HideTooltip();
-      }
-  }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Clicked");
+        if (slot.item.itemType == ItemType.Equipment)
+        {
+            equipmentManager.EquipItem((EquipmentObject)slot.item);
+            TooltipManager.HideTooltip();
+        }
+    }
 
-  public void OnMouseExit()
-  {
-  }
+    public void OnMouseExit()
+    {
+    }
 }

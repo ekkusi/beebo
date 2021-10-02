@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType {
+public enum WeaponType
+{
     Sword,
     Axe,
     Spear
@@ -12,7 +13,8 @@ public class WeaponObject : EquipmentObject
 {
     public WeaponType weaponType;
     public float attackSpeed = 1f;
-    new public void Awake() {
+    new public void Awake()
+    {
         base.Awake();
         equipmentSlot = EquipmentSlot.WeaponMainHand;
         weaponType = WeaponType.Sword;

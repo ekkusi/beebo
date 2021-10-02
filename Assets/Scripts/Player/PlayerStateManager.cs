@@ -5,12 +5,12 @@ using UnityEngine;
 
 public enum PlayerState
 {
-  HeroIdle,
-  HeroWalk,
-  HeroWalkWithBasicSpear,
-  HeroWalkWithBasicSword,
-  HeroHit,
-  HeroHitWithBasicSpear,
-  HeroHitWithBasicSword,
+    HeroIdle,
+    HeroWalk,
+    HeroWalkWithBasicSpear,
+    HeroWalkWithBasicSword,
+    HeroHit,
+    HeroHitWithBasicSpear,
+    HeroHitWithBasicSword,
 }
 public class PlayerStateManager : StateManager<PlayerState> { }

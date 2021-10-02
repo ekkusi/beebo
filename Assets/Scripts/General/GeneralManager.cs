@@ -5,28 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class GeneralManager : MonoBehaviour
 {
-  public string initialScene = "Fisander";
-  public string initialOutDoorwayName = "VillageStart";
-  public bool loadInitialScreenOnStart = true;
-  private static GeneralManager instance = null;
-  void Awake()
-  {
-    if (instance == null)
+    public string initialScene = "Fisander";
+    public string initialOutDoorwayName = "VillageStart";
+    public bool loadInitialScreenOnStart = true;
+    private static GeneralManager instance = null;
+    void Awake()
     {
-      instance = this;
-      DontDestroyOnLoad(this);
-      return;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+            return;
+        }
+        Destroy(this.gameObject);
     }
-    Destroy(this.gameObject);
-  }
-  // Start is called before the first frame update
+    // Start is called before the first frame update
 
-  void Start()
-  {
-    if (loadInitialScreenOnStart)
+    void Start()
     {
-      SceneLoader sceneLoader = GetComponent<SceneLoader>();
-      sceneLoader.CustomLoadScene(initialScene, initialOutDoorwayName);
+        if (loadInitialScreenOnStart)
+        {
+            SceneLoader sceneLoader = GetComponent<SceneLoader>();
+            sceneLoader.CustomLoadScene(initialScene, initialOutDoorwayName);
+        }
     }
-  }
 }

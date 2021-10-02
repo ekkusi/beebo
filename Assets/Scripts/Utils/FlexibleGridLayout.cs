@@ -56,8 +56,8 @@ public class FlexibleGridLayout : LayoutGroup
     public override void CalculateLayoutInputVertical()
     {
         base.CalculateLayoutInputHorizontal();
-        enableRowsEditing = (fitType == FitType.FixedBoth || fitType == FitType.FixedRows) ? true : false;
-        enableColumnsEditing = (fitType == FitType.FixedBoth || fitType == FitType.FixedColumns) ? true : false;
+        enableRowsEditing = fitType == FitType.FixedBoth || fitType == FitType.FixedRows;
+        enableColumnsEditing = fitType == FitType.FixedBoth && fitType == FitType.FixedColumns;
 
 
         if(fitType == FitType.Width || fitType == FitType.Height || fitType == FitType.Uniform)
@@ -69,7 +69,7 @@ public class FlexibleGridLayout : LayoutGroup
             columns = Mathf.CeilToInt(sqrRt);
             disableSizeEditing = true;
         } else {
-            disableSizeEditing = fitType == FitType.FixedBoth ? true : false;
+            disableSizeEditing = fitType == FitType.FixedBoth;
         }
 
         if(fitType == FitType.Width || fitType == FitType.FixedColumns || fitType == FitType.Uniform)
@@ -116,8 +116,8 @@ public class FlexibleGridLayout : LayoutGroup
             autoSpacing = false;
         }
 
-        int columnCount = 0;
-        int rowCount = 0;
+        int columnCount;
+        int rowCount;
 
         for(int i = 0; i < rectChildren.Count; i ++)
         {

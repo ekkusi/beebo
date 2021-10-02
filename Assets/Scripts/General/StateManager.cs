@@ -4,7 +4,7 @@
 public abstract class StateManager<StateEnum> : MonoBehaviour
 {
   private StateEnum state;
-  private bool isStateLocked;
+  private readonly bool isStateLocked;
   private Animator animator;
 
   public void Start()
@@ -12,7 +12,7 @@ public abstract class StateManager<StateEnum> : MonoBehaviour
     animator = GetComponent<Animator>();
   }
 
-  public void ChangeState(StateEnum newState, float duration = 0f)
+  public void ChangeState(StateEnum newState)
   {
     if (isStateLocked || newState.Equals(state)) return;
     Debug.Log("Playing new animation: " + newState);

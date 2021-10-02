@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerCollision))]
-public class PlayerInteraction : MonoBehaviour
+public class Regular : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-
-    void Interact(INPC npc) {
-        npc.Interact();
     }
 }

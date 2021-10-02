@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
   // Update by physics changes is called once per frame
   void FixedUpdate()
   {
-      Vector3 change = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
+      Vector3 change = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 
       if (change != Vector3.zero)
       {

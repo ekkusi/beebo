@@ -14,7 +14,7 @@ public abstract class InventoryObjectEditor : Editor
     }
     private void DisplayArray(SerializedProperty array, string caption=null)
     {
-        EditorGUILayout.LabelField((caption == null) ? array.name : caption);
+        EditorGUILayout.LabelField(caption ?? array.name);
         int size = array.arraySize;
         array.Next(true);       //generic field (list)
         array.Next(true);       //arrays size field

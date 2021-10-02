@@ -25,7 +25,6 @@ public class PlayerEquipmentManager : MonoBehaviour
         EquipmentSlot slot = item.GetSlot();
         Dictionary<EquipmentSlot, EquipmentObject> equippedItems = GetEquippedItems();
         if (equippedItems.ContainsKey(slot)) {
-            ItemObject currentItem = equippedItems[slot];
             inventoryManager.RemoveItem(item.name);
             inventoryManager.inventory.AddItem(new PlayerInventorySlot(item));
         } else {
@@ -73,7 +72,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     }
 
     public Dictionary<EquipmentSlot, EquipmentObject> GetEquippedItems() {
-        Dictionary<EquipmentSlot, EquipmentObject> items = new Dictionary<EquipmentSlot, EquipmentObject>();
+        Dictionary<EquipmentSlot, EquipmentObject> items = new();
         PlayerEquipmentSlot[] slots = equipmentPanel.GetComponentsInChildren<PlayerEquipmentSlot>();
         foreach (PlayerEquipmentSlot it in slots) {
             if (it.equippedItem != null) {

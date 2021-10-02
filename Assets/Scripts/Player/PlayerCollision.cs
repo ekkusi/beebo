@@ -8,8 +8,6 @@ public class PlayerCollision : MonoBehaviour
 {
     public SceneLoader sceneLoader;
     
-    private bool isColliding;
-
     private const int ITEM_CHECK_RADIUS = 100;
     Camera cam;
     GroundItemManager hitGroundItem = null;
@@ -49,11 +47,5 @@ public class PlayerCollision : MonoBehaviour
                 break;
             }
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision) {
-   }
-
-    private void OnCollisionExit2D(Collision2D collision) {
     }
 }

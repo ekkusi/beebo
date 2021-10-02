@@ -5,7 +5,7 @@ using Exceptions;
 public class NumericType : IEquatable<NumericType>
 {
     private object value;
-    private Type type;
+    private readonly Type type;
 
     public NumericType(object obj)
     {
@@ -37,7 +37,7 @@ public class NumericType : IEquatable<NumericType>
         if (obj == null)
             return false;
 
-        if (!(obj is NumericType))
+        if (obj is not NumericType)
             return GetValue() == obj;
 
         return Equals(obj);

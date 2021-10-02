@@ -20,7 +20,7 @@ public class GroundItemManager : MonoBehaviour, IInteractionable
       spriteRenderer.sprite = item.sprite;
     }
   }
-  void Awake()
+  public void Awake()
   {
     // This will activate on play, not OnValidate
     spriteRenderer = GetComponent<SpriteRenderer>();

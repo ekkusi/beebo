@@ -6,10 +6,10 @@ using UnityEngine.EventSystems;
 
 public class PlayerEquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
-    public EquipmentSlot slot;
-    public Sprite notEquippedSprite;
-    public PlayerEquipmentManager equipmentManager;
-    public EquipmentObject equippedItem { get; set; }
+    public EquipmentSlot slot { get; private set;}
+    public Sprite notEquippedSprite { get; private set; }
+    public PlayerEquipmentManager equipmentManager { get; private set; }
+    public EquipmentObject equippedItem { get; private set; }
     private bool isHovering;
 
     // Update is called once per frame

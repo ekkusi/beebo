@@ -5,7 +5,7 @@ using TMPro;
 
 public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType : InventorySlot
 {
-  Dictionary<string, GameObject> itemsDisplayed = new Dictionary<string, GameObject>();
+  readonly Dictionary<string, GameObject> itemsDisplayed = new();
   public InventoryObject<SlotType> inventory;
   public RectTransform inventoryPanel;
 
@@ -90,7 +90,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
   public virtual GameObject CreateItemObject(SlotType slot)
   {
-    GameObject newObj = new GameObject(slot.item.name);
+    GameObject newObj = new(slot.item.name);
     Image image = newObj.AddComponent<Image>();
     image.sprite = slot.item.sprite;
     RectTransform newObjTransform = newObj.GetComponent<RectTransform>();
@@ -100,7 +100,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
     if (!slot.item.isSingleSlot)
     {
-      GameObject textObj = new GameObject("Amount text");
+      GameObject textObj = new("Amount text");
       TextMeshProUGUI textComponent = textObj.AddComponent<TextMeshProUGUI>();
       textComponent.text = slot.amount.ToString("n0");
       textComponent.alignment = TextAlignmentOptions.BottomRight;
@@ -116,7 +116,6 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
       textRect.anchorMin = new Vector2(1, 0);
       textRect.anchorMax = new Vector2(1, 0);
       textRect.anchoredPosition = new Vector3(-textComponent.preferredWidth / 2, textComponent.preferredHeight / 2, 0);
-      Vector2 size = newObj.GetComponent<RectTransform>().rect.size;
     }
 
     itemsDisplayed.Add(slot.item.name, newObj);

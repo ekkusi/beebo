@@ -6,11 +6,11 @@ using UnityEditor;
 [Serializable]
 public abstract class InventoryObject<SlotType> : ScriptableObject where SlotType : InventorySlot
 {
-    private readonly int maxSize;
+    private int maxSize;
     public int MaxSize { get { return maxSize; } }
     // [ReorderableList]
     [SerializeField]
-    private readonly List<SlotType> slots;
+    private List<SlotType> slots;
 
     protected InventoryObject(int _maxSize)
     {
@@ -22,7 +22,7 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
     {
         foreach (SlotType slot in slots)
         {
-            if (slot.item != null)
+            if (slot?.item != null)
             {
                 if (slot.item.isSingleSlot || slot.amount <= 0)
                 {
@@ -80,7 +80,7 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
 
     public List<SlotType> GetItems()
     {
-        List<SlotType> notNullSlots = new();
+        List<SlotType> notNullSlots = new List<SlotType>();
         foreach (SlotType slot in slots)
         {
             if (slot.item != null)

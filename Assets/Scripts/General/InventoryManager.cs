@@ -5,7 +5,7 @@ using TMPro;
 
 public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType : InventorySlot
 {
-    readonly Dictionary<string, GameObject> itemsDisplayed = new();
+    Dictionary<string, GameObject> itemsDisplayed = new Dictionary<string, GameObject>();
     public InventoryObject<SlotType> inventory;
     public RectTransform inventoryPanel;
 
@@ -92,7 +92,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
     public virtual GameObject CreateItemObject(SlotType slot)
     {
-        GameObject newObj = new(slot.item.name);
+        GameObject newObj = new GameObject(slot.item.name);
         Image image = newObj.AddComponent<Image>();
         image.sprite = slot.item.sprite;
         RectTransform newObjTransform = newObj.GetComponent<RectTransform>();
@@ -102,7 +102,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
         if (!slot.item.isSingleSlot)
         {
-            GameObject textObj = new("Amount text");
+            GameObject textObj = new GameObject("Amount text");
             TextMeshProUGUI textComponent = textObj.AddComponent<TextMeshProUGUI>();
             textComponent.text = slot.amount.ToString("n0");
             textComponent.alignment = TextAlignmentOptions.BottomRight;

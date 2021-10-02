@@ -94,7 +94,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     public Dictionary<EquipmentSlot, EquipmentObject> GetEquippedItems()
     {
-        Dictionary<EquipmentSlot, EquipmentObject> items = new();
+        Dictionary<EquipmentSlot, EquipmentObject> items = new Dictionary<EquipmentSlot, EquipmentObject>();
         PlayerEquipmentSlot[] slots = equipmentPanel.GetComponentsInChildren<PlayerEquipmentSlot>();
         foreach (PlayerEquipmentSlot it in slots)
         {

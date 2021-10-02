@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
 {
     [SerializeField]
-    private readonly PlayerInventoryObject playerInventory;
+    private PlayerInventoryObject playerInventory;
 
     public override void InitializeInventory()
     {

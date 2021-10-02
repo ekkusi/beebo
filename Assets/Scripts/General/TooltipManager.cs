@@ -9,9 +9,9 @@ public class TooltipManager : MonoBehaviour
 
     public static TooltipManager _instance { get; private set; }
     [SerializeField]
-    private readonly RectTransform canvasRect;
+    private RectTransform canvasRect;
     [SerializeField]
-    private readonly Camera uiCamera;
+    private Camera uiCamera;
     private TextMeshProUGUI tmPro;
     private RectTransform backgroundRect;
     private RectTransform containerRect;

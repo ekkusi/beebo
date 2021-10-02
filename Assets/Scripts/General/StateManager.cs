@@ -4,7 +4,7 @@
 public abstract class StateManager<StateEnum> : MonoBehaviour
 {
     private StateEnum state;
-    private readonly bool isStateLocked;
+    private bool isStateLocked;
     private Animator animator;
 
     public void Start()

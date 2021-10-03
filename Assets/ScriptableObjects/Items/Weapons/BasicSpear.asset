@@ -16,7 +16,11 @@ MonoBehaviour:
   itemType: 1
   description: A basic spear
   isSingleSlot: 1
-  attackBonus: 20
-  defenseBonus: 0
-  weaponType: 2
+  statBonuses:
+    array:
+    - type: 3
+      modifier:
+        value: 20
+        type: 0
+  weaponType: 0
   attackSpeed: 2

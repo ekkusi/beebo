@@ -16,6 +16,10 @@ MonoBehaviour:
   itemType: 1
   description: Basic pair of pants
   isSingleSlot: 1
-  attackBonus: 0
-  defenseBonus: 10
+  statBonuses:
+    array:
+    - type: 4
+      modifier:
+        value: 20
+        type: 0
   armorType: 4

@@ -16,6 +16,10 @@ MonoBehaviour:
   itemType: 1
   description: Basic ring
   isSingleSlot: 1
-  attackBonus: 0
-  defenseBonus: 0
+  statBonuses:
+    array:
+    - type: 2
+      modifier:
+        value: 2
+        type: 0
   armorType: 3

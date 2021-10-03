@@ -17,12 +17,6 @@ public class ArmorObject : EquipmentObject
 {
     public ArmorType armorType;
 
-    new public void Awake()
-    {
-        base.Awake();
-        armorType = ArmorType.Chest;
-    }
-
     public void OnValidate()
     {
         equipmentSlot = (EquipmentSlot)armorType;

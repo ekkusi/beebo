@@ -15,6 +15,11 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 392e815cbc594f05bb0fb82531ff57f1, type: 3}
   itemType: 1
   description: A basic plate body
-  attackBonus: 0
-  defenseBonus: 20
+  isSingleSlot: 1
+  statBonuses:
+    array:
+    - type: 4
+      modifier:
+        value: 25
+        type: 0
   armorType: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Malee.List;
 
 public enum EquipmentSlot
 {
@@ -14,10 +15,12 @@ public enum EquipmentSlot
     WeaponMainHand,
     WeaponOffHand,
 }
+
 public abstract class EquipmentObject : ItemObject
 {
-    public int attackBonus;
-    public int defenseBonus;
+
+    [SerializeField, Reorderable]
+    private StatBonuses statBonuses;
     [ReadOnly]
     protected EquipmentSlot equipmentSlot;
 
@@ -30,5 +33,10 @@ public abstract class EquipmentObject : ItemObject
     public EquipmentSlot GetSlot()
     {
         return equipmentSlot;
+    }
+    public StatBonuses GetStatBonuses() { return statBonuses; }
+    [System.Serializable]
+    public class StatBonuses : ReorderableArray<StatBonus>
+    {
     }
 }

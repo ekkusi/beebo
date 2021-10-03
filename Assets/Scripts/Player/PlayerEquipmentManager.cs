@@ -6,6 +6,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     public RectTransform equipmentPanel;
     private PlayerInventoryManager inventoryManager;
+    public PlayerStatsManager playerStats;
 
     void Start()
     {
@@ -29,14 +30,10 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
         EquipmentSlot slot = item.GetSlot();
         Dictionary<EquipmentSlot, EquipmentObject> equippedItems = GetEquippedItems();
+        inventoryManager.RemoveItem(item.name);
         if (equippedItems.ContainsKey(slot))
         {
-            inventoryManager.RemoveItem(item.name);
-            inventoryManager.inventory.AddItem(new PlayerInventorySlot(item));
-        }
-        else
-        {
-            inventoryManager.RemoveItem(item.name);
+            UnEquipItem(slot);
         }
         FindAndEquipSlot(item);
     }
@@ -49,8 +46,12 @@ public class PlayerEquipmentManager : MonoBehaviour
         {
             if (it.slot == slot)
             {
-                Debug.Log("Equipping slot " + slot + " with item: " + item.name);
                 it.Equip(item);
+                foreach (StatBonus bonus in item.GetStatBonuses())
+                {
+                    playerStats.AddStatBonus(bonus);
+                }
+                break;
             }
         }
     }
@@ -63,6 +64,11 @@ public class PlayerEquipmentManager : MonoBehaviour
             if (it.slot == slot)
             {
                 it.UnEquip();
+                foreach (StatBonus bonus in item.GetStatBonuses())
+                {
+                    playerStats.RemoveStatBonus(bonus);
+                }
+                break;
             }
         }
     }
@@ -77,7 +83,6 @@ public class PlayerEquipmentManager : MonoBehaviour
             {
                 FindAndUnEquipSlot(item);
                 inventoryManager.inventory.AddItem(new PlayerInventorySlot(item));
-                Debug.Log("Items count after unequip " + inventoryManager.inventory.GetItems().Count);
             }
             else
             {

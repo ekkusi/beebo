@@ -16,8 +16,6 @@ public class WeaponObject : EquipmentObject
     new public void Awake()
     {
         base.Awake();
-        equipmentSlot = EquipmentSlot.WeaponMainHand;
-        weaponType = WeaponType.Sword;
     }
 
 }

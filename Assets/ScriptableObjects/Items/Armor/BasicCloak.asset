@@ -16,6 +16,10 @@ MonoBehaviour:
   itemType: 1
   description: Basic cloak. Doesn't hide you from enemies eyes.
   isSingleSlot: 1
-  attackBonus: 0
-  defenseBonus: 5
+  statBonuses:
+    array:
+    - type: 4
+      modifier:
+        value: 10
+        type: 0
   armorType: 5

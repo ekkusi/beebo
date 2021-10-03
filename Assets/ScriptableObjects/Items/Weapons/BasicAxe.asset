@@ -16,7 +16,11 @@ MonoBehaviour:
   itemType: 1
   description: A basic axe
   isSingleSlot: 1
-  attackBonus: 15
-  defenseBonus: 0
-  weaponType: 1
+  statBonuses:
+    array:
+    - type: 3
+      modifier:
+        value: 15
+        type: 0
+  weaponType: 0
   attackSpeed: 1.5

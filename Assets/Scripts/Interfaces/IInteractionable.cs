@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface INPC
+
+public interface IInteractionable
 {
     void Interact();
+    void ShowInteractionTooltip();
+    void StopInteraction();
 }

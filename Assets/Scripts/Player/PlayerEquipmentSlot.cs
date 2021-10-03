@@ -6,9 +6,11 @@ using UnityEngine.EventSystems;
 
 public class PlayerEquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
-    public EquipmentSlot slot { get; private set; }
-    public Sprite notEquippedSprite { get; private set; }
-    public PlayerEquipmentManager equipmentManager { get; private set; }
+    public EquipmentSlot slot;
+    [SerializeField]
+    private Sprite notEquippedSprite;
+    [SerializeField]
+    private PlayerEquipmentManager equipmentManager;
     public EquipmentObject equippedItem { get; private set; }
     private bool isHovering;
 

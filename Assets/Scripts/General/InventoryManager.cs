@@ -6,8 +6,10 @@ using TMPro;
 public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType : InventorySlot
 {
     Dictionary<string, GameObject> itemsDisplayed = new Dictionary<string, GameObject>();
-    public InventoryObject<SlotType> inventory;
+    [SerializeField]
+    protected InventoryObject<SlotType> inventory;
     public RectTransform inventoryPanel;
+    private bool isDirty = true;
 
     public void Awake()
     {
@@ -17,15 +19,20 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
     public void Start()
     {
         CreatePanelContent();
-        if (inventory == null)
-        {
-            InitializeInventory();
-        }
     }
 
     public void Update()
     {
-        UpdatePanelContent();
+        if (inventory == null)
+        {
+            InitializeInventory();
+        }
+        // UpdatePanelContent();
+        if (isDirty)
+        {
+            CreatePanelContent();
+            isDirty = false;
+        }
     }
 
     public abstract void InitializeInventory();
@@ -84,10 +91,27 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
     public void RemoveItem(string itemName)
     {
-        GameObject item = itemsDisplayed[itemName];
-        inventory.RemoveItem(item.name);
-        Destroy(item);
-        itemsDisplayed.Remove(item.name);
+        // GameObject item = itemsDisplayed[itemName];
+        inventory.RemoveItem(itemName);
+        isDirty = true;
+        // Destroy(item);
+        // itemsDisplayed.Remove(item.name);
+    }
+
+    public void AddItem(SlotType slot)
+    {
+        isDirty = true;
+        inventory.AddItem(slot);
+    }
+
+    public List<SlotType> GetItems()
+    {
+        return inventory.GetItems();
+    }
+
+    public int GetMaxSize()
+    {
+        return inventory.MaxSize;
     }
 
     public virtual GameObject CreateItemObject(SlotType slot)
@@ -120,7 +144,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
             textRect.anchoredPosition = new Vector3(-textComponent.preferredWidth / 2, textComponent.preferredHeight / 2, 0);
         }
 
-        itemsDisplayed.Add(slot.item.name, newObj);
+        // itemsDisplayed.Add(slot.item.name, newObj);
         return newObj;
     }
 

@@ -22,5 +22,5 @@ MonoBehaviour:
       modifier:
         value: 20
         type: 0
-  weaponType: 0
+  weaponType: 2
   attackSpeed: 2

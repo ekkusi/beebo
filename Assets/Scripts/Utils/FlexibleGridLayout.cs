@@ -57,7 +57,7 @@ public class FlexibleGridLayout : LayoutGroup
     {
         base.CalculateLayoutInputHorizontal();
         enableRowsEditing = fitType == FitType.FixedBoth || fitType == FitType.FixedRows;
-        enableColumnsEditing = fitType == FitType.FixedBoth && fitType == FitType.FixedColumns;
+        enableColumnsEditing = fitType == FitType.FixedBoth || fitType == FitType.FixedColumns;
 
 
         if (fitType == FitType.Width || fitType == FitType.Height || fitType == FitType.Uniform)

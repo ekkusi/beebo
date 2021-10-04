@@ -22,4 +22,8 @@ MonoBehaviour:
       modifier:
         value: 10
         type: 0
+    - type: 4
+      modifier:
+        value: 0.1
+        type: 1
   armorType: 5

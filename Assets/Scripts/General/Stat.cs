@@ -37,11 +37,11 @@ public class Stat
         {
             if (a.type == StatModType.Percent && b.type == StatModType.Flat)
             {
-                return -1;
+                return 1;
             }
             else if (a.type == StatModType.Flat && b.type == StatModType.Percent)
             {
-                return 1;
+                return -1;
             }
             return 0;
         });
@@ -73,4 +73,9 @@ public class Stat
         return finalValue;
     }
 
+    public void AddToBaseStat(float amount)
+    {
+        isDirty = true;
+        baseValue += amount;
+    }
 }

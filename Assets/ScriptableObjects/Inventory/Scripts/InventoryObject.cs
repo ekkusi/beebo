@@ -42,7 +42,9 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         }
         else if (notNullSlots.Count <= maxSize)
         {
-            slots[notNullSlots.Count] = newSlot;
+            int firstNotNullIndex = slots.FindIndex((slot) => slot.item == null);
+            Debug.Log("Adding item to index " + firstNotNullIndex);
+            slots[firstNotNullIndex] = newSlot;
         }
         else
         {
@@ -56,6 +58,18 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         if (matchingSlot != null)
         {
             matchingSlot.item = null;
+            slots.Sort((a, b) =>
+            {
+                if (a.item == null && b.item != null)
+                {
+                    return 1;
+                }
+                else if (a.item != null && b.item == null)
+                {
+                    return -1;
+                }
+                else return 0;
+            });
         }
     }
 

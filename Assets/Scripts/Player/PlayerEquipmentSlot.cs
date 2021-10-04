@@ -9,11 +9,14 @@ public class PlayerEquipmentSlot : MonoBehaviour, IPointerClickHandler
     public EquipmentSlot slot;
     [SerializeField]
     private Sprite notEquippedSprite;
-    [SerializeField]
     private PlayerEquipmentManager equipmentManager;
     public EquipmentObject equippedItem { get; private set; }
     private bool isHovering;
 
+    void Start()
+    {
+        equipmentManager = transform.parent.parent.GetComponent<PlayerEquipmentManager>();
+    }
     // Update is called once per frame
     void Update()
     {

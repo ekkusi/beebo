@@ -41,7 +41,7 @@ public class GroundItemManager : MonoBehaviour, IInteractionable
 
     public void Interact()
     {
-        inventoryManager.inventory.AddItem(new PlayerInventorySlot(item, amount));
+        inventoryManager.AddItem(new PlayerInventorySlot(item, amount));
         Destroy(gameObject);
     }
     public void StopInteraction()

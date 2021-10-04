@@ -78,11 +78,11 @@ public class PlayerEquipmentManager : MonoBehaviour
         EquipmentObject item = GetEquippedItems()[slot];
         if (item != null)
         {
-            int itemsCount = inventoryManager.inventory.GetItems().Count;
-            if (itemsCount < inventoryManager.inventory.MaxSize)
+            int itemsCount = inventoryManager.GetItems().Count;
+            if (itemsCount < inventoryManager.GetMaxSize())
             {
                 FindAndUnEquipSlot(item);
-                inventoryManager.inventory.AddItem(new PlayerInventorySlot(item));
+                inventoryManager.AddItem(new PlayerInventorySlot(item));
             }
             else
             {

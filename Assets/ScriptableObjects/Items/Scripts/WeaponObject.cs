@@ -18,4 +18,9 @@ public class WeaponObject : EquipmentObject
         base.Awake();
     }
 
+    private void OnValidate()
+    {
+        equipmentSlot = EquipmentSlot.WeaponMainHand;
+    }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Malee.List;
+using System;
 
 public enum EquipmentSlot
 {
@@ -38,5 +39,24 @@ public abstract class EquipmentObject : ItemObject
     [System.Serializable]
     public class StatBonuses : ReorderableArray<StatBonus>
     {
+    }
+
+    public override string ToString()
+    {
+        string message = string.Format("{0}\n", name);
+        foreach (StatBonus bonus in statBonuses)
+        {
+            message += "\n";
+            message += StatBonus.TypeToString(bonus.type) + " +";
+            if (bonus.modifier.type == StatModType.Flat)
+            {
+                message += bonus.modifier.value;
+            }
+            else if (bonus.modifier.type == StatModType.Percent)
+            {
+                message += bonus.modifier.value + "%";
+            }
+        }
+        return message;
     }
 }

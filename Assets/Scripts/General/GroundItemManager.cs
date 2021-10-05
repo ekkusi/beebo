@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class GroundItemManager : MonoBehaviour, IInteractionable
+public class GroundItemManager : Interactionable
 {
     public ItemObject item;
     public int amount = 1;
-    private Camera cam;
     private SpriteRenderer spriteRenderer;
     private PlayerInventoryManager inventoryManager;
 
-    void Start()
+    new void Start()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        base.Start();
         inventoryManager = GameObject.Find("PlayerInventory").GetComponent<PlayerInventoryManager>();
     }
     void OnValidate()
@@ -29,30 +28,19 @@ public class GroundItemManager : MonoBehaviour, IInteractionable
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // public void OnMouseEnter()
-    // {
-    //     ShowInteractionTooltip();
-    // }
-
-    // public void OnMouseExit()
-    // {
-    //     HideInteractionToolip();
-    // }
-
-    public void Interact()
+    public override void Interact()
     {
         inventoryManager.AddItem(new PlayerInventorySlot(item, amount));
         Destroy(gameObject);
     }
-    public void StopInteraction()
+    public override void StopInteraction()
     {
         TooltipManager.HideTooltip();
     }
 
-    public void ShowInteractionTooltip()
+    public override void ShowInteractionTooltip()
     {
-        Vector3 screenPos = cam.WorldToScreenPoint(transform.position);
-        TooltipManager.ShowtoolTip(string.Format("{0} ({1}) \nPick up (space)", item.name, amount), screenPos);
+        TooltipManager.ShowtoolTip(string.Format("{0} ({1}) \nPick up (space)", item.name, amount), positionOnScreen);
     }
 
 }

@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChatNPCManager : MonoBehaviour, IInteractionable
+public class ChatNPCManager : Interactionable
 {
     public ChatNPCObject npc;
     private SpriteRenderer spriteRenderer;
-    private Camera cam;
 
-    void Start()
-    {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-    }
     void OnValidate()
     {
         // Remove error coming when playing
@@ -26,17 +21,16 @@ public class ChatNPCManager : MonoBehaviour, IInteractionable
         }
     }
 
-    public void ShowInteractionTooltip()
+    public override void ShowInteractionTooltip()
     {
-        Vector3 screenPos = cam.WorldToScreenPoint(transform.position);
-        TooltipManager.ShowtoolTip(string.Format("{0} \nSpeak (space)", gameObject.name), screenPos);
+        TooltipManager.ShowtoolTip(string.Format("{0} \nSpeak (space)", gameObject.name), positionOnScreen);
     }
 
-    public void Interact()
+    public override void Interact()
     {
         ChatBoxManager.OpenChat(npc);
     }
-    public void StopInteraction()
+    public override void StopInteraction()
     {
         ChatBoxManager.CloseChat();
         TooltipManager.HideTooltip();

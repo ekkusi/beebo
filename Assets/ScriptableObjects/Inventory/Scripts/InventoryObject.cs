@@ -43,12 +43,11 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         else if (notNullSlots.Count <= maxSize)
         {
             int firstNotNullIndex = slots.FindIndex((slot) => slot.item == null);
-            Debug.Log("Adding item to index " + firstNotNullIndex);
             slots[firstNotNullIndex] = newSlot;
         }
         else
         {
-            Debug.LogWarning("Inventory is already full with " + slots.Count + " items.");
+            throw new NoSpaceInInventoryException();
         }
     }
     public void RemoveItem(string itemName)
@@ -58,19 +57,24 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
         if (matchingSlot != null)
         {
             matchingSlot.item = null;
-            slots.Sort((a, b) =>
-            {
-                if (a.item == null && b.item != null)
-                {
-                    return 1;
-                }
-                else if (a.item != null && b.item == null)
-                {
-                    return -1;
-                }
-                else return 0;
-            });
+            SortSlots();
         }
+    }
+
+    public void SortSlots()
+    {
+        slots.Sort((a, b) =>
+        {
+            if (a.item == null && b.item != null)
+            {
+                return 1;
+            }
+            else if (a.item != null && b.item == null)
+            {
+                return -1;
+            }
+            else return 0;
+        });
     }
 
     public void SubstractAmountOrRemove(string itemName, int amount = 1)
@@ -83,6 +87,7 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
             if (matchingItem.amount <= 0)
             {
                 RemoveItem(itemName);
+                SortSlots();
             }
         }
         else
@@ -107,8 +112,9 @@ public abstract class InventoryObject<SlotType> : ScriptableObject where SlotTyp
 }
 
 
-public class InventorySlot
+public abstract class InventorySlot
 {
     public ItemObject item;
     public int amount = 1;
+
 }

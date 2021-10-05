@@ -2,35 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Merchant : MonoBehaviour, IInteractionable
+public class Merchant : Interactionable
 {
-    public MerchantInventoryObject inventory;
+    private MerchantStoreManager storeManager;
 
-
-    public void Interact()
+    new void Start()
     {
-        Debug.Log("Interacting with merchant: " + this.name);
+        base.Start();
+        storeManager = transform.Find("Merchant UI").GetComponentInChildren<MerchantStoreManager>();
     }
 
-    public void StopInteraction()
+    public override void Interact()
     {
+        storeManager.OpenInventory();
         TooltipManager.HideTooltip();
     }
 
-    public void ShowInteractionTooltip()
+    public override void StopInteraction()
     {
-        TooltipManager.ShowtoolTip(string.Format("{0} \nSpeak (space)", gameObject.name));
+        TooltipManager.HideTooltip();
+        storeManager.CloseInventory();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override void ShowInteractionTooltip()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        TooltipManager.ShowtoolTip(string.Format("{0} \nOpen shop (space)", gameObject.name), positionOnScreen);
     }
 }

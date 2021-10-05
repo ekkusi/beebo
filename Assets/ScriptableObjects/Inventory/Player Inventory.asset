@@ -14,28 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots:
   - item: {fileID: 11400000, guid: 2eb2534a8305c37f19e40d8b90024b42, type: 2}
-    amount: 500
-  - item: {fileID: 11400000, guid: fae85dcfeb81448faa965408d7da8750, type: 2}
+    amount: 50
+  - item: {fileID: 0}
     amount: 1
-  - item: {fileID: 11400000, guid: 9e6681cbfd2df4ac48149b43462d0db4, type: 2}
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 1
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
     amount: 1
   - item: {fileID: 0}
     amount: 0
   - item: {fileID: 0}
     amount: 0
   - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
     amount: 0
   - item: {fileID: 0}
     amount: 0
@@ -52,20 +66,6 @@ MonoBehaviour:
   - item: {fileID: 0}
     amount: 1
   - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
+    amount: 0
   - item: {fileID: 0}
     amount: 0

@@ -14,3 +14,6 @@ dotnet_analyzer_diagnostic.severity = none
 
 [/Assets/Draw+If+Attribute/**]
 dotnet_analyzer_diagnostic.severity = none
+
+[/Packages/**]
+dotnet_analyzer_diagnostic.severity = none

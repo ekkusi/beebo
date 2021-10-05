@@ -16,3 +16,5 @@ MonoBehaviour:
   itemType: 0
   description: MONEYYY!!
   isSingleSlot: 0
+  basePrice: 0
+  isSellable: 0

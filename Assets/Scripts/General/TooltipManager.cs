@@ -77,6 +77,7 @@ public class TooltipManager : MonoBehaviour
             {
                 anchoredPosition.y = canvasRect.rect.height - backgroundRect.rect.height;
             }
+            anchoredPosition.y += 20;
 
             containerRect.anchoredPosition = anchoredPosition;
         }
@@ -94,7 +95,10 @@ public class TooltipManager : MonoBehaviour
 
     public static void HideTooltip()
     {
-        _instance.HideTooltip_private();
+        if (_instance.backgroundRect.gameObject.activeInHierarchy)
+        {
+            _instance.HideTooltip_private();
+        }
     }
 
     public static bool IsActive()

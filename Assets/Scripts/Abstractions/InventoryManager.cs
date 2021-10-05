@@ -5,10 +5,11 @@ using TMPro;
 
 public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType : InventorySlot
 {
-    Dictionary<string, GameObject> itemsDisplayed = new Dictionary<string, GameObject>();
+    // Dictionary<string, GameObject> itemsDisplayed = new Dictionary<string, GameObject>();
     [SerializeField]
     protected InventoryObject<SlotType> inventory;
     public RectTransform inventoryPanel;
+    private RectTransform itemsPanel;
     private bool isDirty = true;
 
     public void Awake()
@@ -18,6 +19,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
     public void Start()
     {
+        itemsPanel = inventoryPanel.Find("Items").GetComponent<RectTransform>();
         CreatePanelContent();
     }
 
@@ -35,13 +37,24 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
         }
     }
 
+    public virtual void OpenInventory()
+    {
+        inventoryPanel.gameObject.SetActive(true);
+        TooltipManager.HideTooltip();
+    }
+    public virtual void CloseInventory()
+    {
+        inventoryPanel.gameObject.SetActive(false);
+        TooltipManager.HideTooltip();
+    }
+
     public abstract void InitializeInventory();
 
     public void CreatePanelContent()
     {
-        for (int i = 0; i < inventoryPanel.transform.childCount; i++)
+        for (int i = 0; i < itemsPanel.transform.childCount; i++)
         {
-            Destroy(inventoryPanel.transform.GetChild(i).gameObject);
+            Destroy(itemsPanel.transform.GetChild(i).gameObject);
         }
         List<SlotType> items = inventory.GetItems();
         for (int i = 0; i < items.Count; i++)
@@ -52,42 +65,42 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
     }
 
 
-    public void UpdatePanelContent()
-    {
-        List<SlotType> items = inventory.GetItems();
+    // public void UpdatePanelContent()
+    // {
+    //     List<SlotType> items = inventory.GetItems();
 
-        // TODO: This loop runs on every update, could there be a way to run it only when inventory is changed?
-        for (int i = 0; i < items.Count; i++)
-        {
-            SlotType slot = items[i];
-            if (slot == null)
-            {
-                Debug.Log("Removing item, it null");
-                RemoveItem(slot.item.name);
-                i--;
-            }
-            else if (slot.amount == 0)
-            {
-                Debug.Log("Removing item: " + slot.item.name);
-                RemoveItem(slot.item.name);
-            }
-            else if (itemsDisplayed.ContainsKey(slot.item.name))
-            {
-                if (!slot.item.isSingleSlot)
-                {
-                    GameObject matchingObj = itemsDisplayed[slot.item.name];
-                    TextMeshProUGUI objText = matchingObj.GetComponentInChildren<TextMeshProUGUI>(true);
-                    objText.text = slot.amount.ToString("n0");
-                    UpdateAmountTextPos(objText.gameObject);
-                }
-            }
-            else
-            {
-                Debug.Log("Creating new item in update");
-                CreateItemObject(slot);
-            }
-        }
-    }
+    //     // TODO: This loop runs on every update, could there be a way to run it only when inventory is changed?
+    //     for (int i = 0; i < items.Count; i++)
+    //     {
+    //         SlotType slot = items[i];
+    //         if (slot == null)
+    //         {
+    //             Debug.Log("Removing item, it null");
+    //             RemoveItem(slot.item.name);
+    //             i--;
+    //         }
+    //         else if (slot.amount == 0)
+    //         {
+    //             Debug.Log("Removing item: " + slot.item.name);
+    //             RemoveItem(slot.item.name);
+    //         }
+    //         else if (itemsDisplayed.ContainsKey(slot.item.name))
+    //         {
+    //             if (!slot.item.isSingleSlot)
+    //             {
+    //                 GameObject matchingObj = itemsDisplayed[slot.item.name];
+    //                 TextMeshProUGUI objText = matchingObj.GetComponentInChildren<TextMeshProUGUI>(true);
+    //                 objText.text = slot.amount.ToString("n0");
+    //                 UpdateAmountTextPos(objText.gameObject);
+    //             }
+    //         }
+    //         else
+    //         {
+    //             Debug.Log("Creating new item in update");
+    //             CreateItemObject(slot);
+    //         }
+    //     }
+    // }
 
     public void RemoveItem(string itemName)
     {
@@ -100,8 +113,13 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
     public void AddItem(SlotType slot)
     {
-        isDirty = true;
         inventory.AddItem(slot);
+        isDirty = true;
+    }
+    public void SubstractAmountOrRemove(string itemName, int amount = 1)
+    {
+        inventory.SubstractAmountOrRemove(itemName, amount);
+        isDirty = true;
     }
 
     public List<SlotType> GetItems()
@@ -120,7 +138,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
         Image image = newObj.AddComponent<Image>();
         image.sprite = slot.item.sprite;
         RectTransform newObjTransform = newObj.GetComponent<RectTransform>();
-        newObjTransform.SetParent(inventoryPanel.gameObject.transform);
+        newObjTransform.SetParent(itemsPanel.transform);
         newObjTransform.localScale = new Vector3(1, 1, 1);
         newObj.SetActive(true);
 

@@ -17,5 +17,23 @@ public struct StatBonus
 {
     public StatType type;
     public StatModifier modifier;
+
+    public static string TypeToString(StatType type)
+    {
+        switch (type)
+        {
+            case StatType.Strength:
+                return "Strength";
+            case StatType.Agility:
+                return "Agility";
+            case StatType.Intelligence:
+                return "Intelligence";
+            case StatType.AttackDamage:
+                return "Attack Damage";
+            case StatType.Defence:
+                return "Defence";
+        }
+        return "Unknown";
+    }
 }
 

@@ -13,64 +13,61 @@ MonoBehaviour:
   m_Name: FisanderArmorSellerInventory
   m_EditorClassIdentifier: 
   slots:
-  - item: {fileID: 11400000, guid: b7d9176695c9145ed936ff5fdb9a4d2e, type: 2}
-    amount: 20
-    price: 5
   - item: {fileID: 11400000, guid: 3e6fdeb8c514640c78fdcaf74f5fcb55, type: 2}
-    amount: 20
-    price: 5
+    amount: 1
   - item: {fileID: 11400000, guid: 9e6681cbfd2df4ac48149b43462d0db4, type: 2}
-    amount: 20
-    price: 20
+    amount: 1
   - item: {fileID: 11400000, guid: fae85dcfeb81448faa965408d7da8750, type: 2}
-    amount: 20
-    price: 10
+    amount: 1
   - item: {fileID: 11400000, guid: 45950eeb49cb243a7a75dd55a0b6208b, type: 2}
-    amount: 20
-    price: 10
+    amount: 1
+  - item: {fileID: 11400000, guid: 45950eeb49cb243a7a75dd55a0b6208b, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: b7d9176695c9145ed936ff5fdb9a4d2e, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: e0880616cfb384dc3a9a22ffe6803a4d, type: 2}
+    amount: 1
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
   - item: {fileID: 0}
     amount: 0
-    price: 0
-  someProperty: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  buyPriceMultiplier: 1
+  sellPriceMultiplier: 0.5

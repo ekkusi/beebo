@@ -25,13 +25,12 @@ public class PlayerEquipmentSlot : MonoBehaviour, IPointerClickHandler
         )
         {
             isHovering = true;
-            string message = string.Format("UNEQUIP\n{0} \n", equippedItem.name);
-            TooltipManager.ShowtoolTip(message);
+            string tooltipMsg = equippedItem.ToString("Unequip (click) \n\n");
+            TooltipManager.ShowtoolTip(tooltipMsg);
         }
         else if (isHovering)
         {
             isHovering = false;
-            Debug.Log("Hiding equipment panel tool tip");
             TooltipManager.HideTooltip();
         }
     }

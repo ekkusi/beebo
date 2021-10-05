@@ -7,6 +7,7 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
 {
     [SerializeField]
     private PlayerInventoryObject playerInventory;
+    public ItemObject coinsItem;
 
     public override void InitializeInventory()
     {
@@ -16,7 +17,7 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
     new void Start()
     {
         base.Start();
-        inventoryPanel.gameObject.SetActive(false);
+        CloseInventory();
     }
 
     new void Update()
@@ -24,8 +25,16 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
         base.Update();
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventoryPanel.gameObject.SetActive(!inventoryPanel.gameObject.activeInHierarchy);
+            if (inventoryPanel.gameObject.activeInHierarchy)
+            {
+                CloseInventory();
+            }
+            else
+            {
+                OpenInventory();
+            }
         }
+
     }
 
     public override GameObject CreateItemObject(PlayerInventorySlot slot)
@@ -34,5 +43,50 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
         PlayerInventoryItemManager itemManager = obj.AddComponent<PlayerInventoryItemManager>();
         itemManager.slot = slot;
         return obj;
+    }
+
+    public int GetCoinsAmount()
+    {
+        int amount = 0;
+        foreach (PlayerInventorySlot slot in playerInventory.GetItems())
+        {
+            if (slot.item.name == "Coins")
+            {
+                amount = slot.amount;
+            }
+        }
+        return amount;
+    }
+
+    public void SubstractCoinsAmount(int amount)
+    {
+        int coinsAmount = 0;
+        foreach (PlayerInventorySlot slot in playerInventory.GetItems())
+        {
+            if (slot.item.name == "Coins")
+            {
+                coinsAmount = slot.amount;
+                break;
+            }
+        }
+        if (amount <= coinsAmount)
+        {
+            SubstractAmountOrRemove("Coins", amount);
+        }
+        else
+        {
+            throw new NotEnoughCoinsException();
+        }
+    }
+    public void AddCoins(int amount)
+    {
+        try
+        {
+            AddItem(new PlayerInventorySlot(coinsItem, amount));
+        }
+        catch (NoSpaceInInventoryException)
+        {
+            Debug.Log("No space in inventory to add coins");
+        }
     }
 }

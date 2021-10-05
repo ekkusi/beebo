@@ -66,7 +66,7 @@ public class Stat
             }
             else if (mod.type == StatModType.Percent)
             {
-                finalValue *= 1 + mod.value;
+                finalValue *= 1 + (mod.value / 100);
             }
         }
 

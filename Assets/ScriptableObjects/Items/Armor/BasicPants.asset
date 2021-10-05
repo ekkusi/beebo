@@ -16,6 +16,8 @@ MonoBehaviour:
   itemType: 1
   description: Basic pair of pants
   isSingleSlot: 1
+  basePrice: 250
+  isSellable: 1
   statBonuses:
     array:
     - type: 4

@@ -8,7 +8,7 @@ public class MerchantStoreManager : InventoryManager<MerchantInventorySlot>
 {
     [SerializeField]
     private MerchantInventoryObject merchantInventory;
-    public PlayerInventoryManager playerInventoryManager;
+    private PlayerInventoryManager playerInventoryManager;
 
     // NOTE: If two stores can be opened at the same time, this needs to be changed from static to something else
     public static MerchantStoreManager activeManager = null;
@@ -22,7 +22,8 @@ public class MerchantStoreManager : InventoryManager<MerchantInventorySlot>
     new void Start()
     {
         base.Start();
-        inventoryPanel.gameObject.SetActive(false);
+        playerInventoryManager = GameObject.FindObjectOfType<PlayerInventoryManager>();
+        Debug.Log("Merchant player inventory: " + playerInventoryManager.name);
     }
 
     public override void OpenInventory()

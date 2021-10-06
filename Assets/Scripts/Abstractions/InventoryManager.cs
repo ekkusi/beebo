@@ -21,6 +21,7 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
     {
         itemsPanel = inventoryPanel.Find("Items").GetComponent<RectTransform>();
         CreatePanelContent();
+        CloseInventory();
     }
 
     public void Update()

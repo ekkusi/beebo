@@ -14,12 +14,6 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
         inventory = playerInventory;
     }
 
-    new void Start()
-    {
-        base.Start();
-        CloseInventory();
-    }
-
     new void Update()
     {
         base.Update();

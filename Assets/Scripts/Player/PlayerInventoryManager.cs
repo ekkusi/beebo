@@ -14,7 +14,7 @@ public class PlayerInventoryManager : InventoryManager<PlayerInventorySlot>
         inventory = playerInventory;
     }
 
-    new void Update()
+    public override void Update()
     {
         base.Update();
         if (Input.GetKeyDown(KeyCode.I))

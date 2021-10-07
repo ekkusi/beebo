@@ -19,7 +19,7 @@ public class MerchantStoreManager : InventoryManager<MerchantInventorySlot>
         inventory = merchantInventory;
     }
 
-    new void Start()
+    public override void Start()
     {
         base.Start();
         playerInventoryManager = GameObject.FindObjectOfType<PlayerInventoryManager>();

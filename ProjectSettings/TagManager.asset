@@ -9,6 +9,7 @@ TagManager:
   - Merchant
   - NPC
   - GroundItem
+  - Enemy
   layers:
   - Default
   - TransparentFX

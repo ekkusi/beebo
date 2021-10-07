@@ -4,30 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-[SerializeField]
-public enum StatType
-{
-    Strength,
-    Agility,
-    Intelligence,
-    AttackDamage,
-    Defence
-}
-public class PlayerStatsManager : MonoBehaviour
+public class PlayerStatsManager : StatsManager
 {
     public RectTransform statsPanel;
-    public Stat strength { get; private set; }
-    public Stat agility { get; private set; }
-    public Stat intelligence { get; private set; }
-    public Stat attackDamage { get; private set; }
-    public Stat defence { get; private set; }
-
-    public float baseStrength;
-    public float baseAgility;
-    public float baseIntelligence;
-    public float baseAttackDamage;
-    public float baseDefence;
-    private PlayerExperienceManager playerExperienceManager;
     private TextMeshProUGUI levelText;
     private TextMeshProUGUI addPointsText;
     private TextMeshProUGUI strengthText;
@@ -35,18 +14,17 @@ public class PlayerStatsManager : MonoBehaviour
     private TextMeshProUGUI intelligenceText;
     private TextMeshProUGUI attackDamageText;
     private TextMeshProUGUI defenceText;
+    private TextMeshProUGUI healthText;
+    private TextMeshProUGUI manaText;
     private Button strengthAddButton;
     private Button agilityAddButton;
     private Button intelligenceAddButton;
     private int pointsToAdd;
-    void Start()
+    [SerializeField]
+    private int statPointsInLevelUp = 3;
+    public override void Start()
     {
-        playerExperienceManager = GetComponent<PlayerExperienceManager>();
-        strength = new Stat(baseStrength);
-        agility = new Stat(baseAgility);
-        intelligence = new Stat(baseIntelligence);
-        attackDamage = new Stat(baseAttackDamage);
-        defence = new Stat(baseDefence);
+        base.Start();
 
         levelText = statsPanel.Find("Level Title").GetComponent<TextMeshProUGUI>();
         addPointsText = statsPanel.Find("Add Points Text").GetComponent<TextMeshProUGUI>();
@@ -55,6 +33,8 @@ public class PlayerStatsManager : MonoBehaviour
         intelligenceText = statsPanel.Find("Intelligence").Find("Stat Label").GetComponent<TextMeshProUGUI>();
         attackDamageText = statsPanel.Find("Attack Damage").GetComponent<TextMeshProUGUI>();
         defenceText = statsPanel.Find("Defence").GetComponent<TextMeshProUGUI>();
+        healthText = statsPanel.Find("Health").GetComponent<TextMeshProUGUI>();
+        manaText = statsPanel.Find("Mana").GetComponent<TextMeshProUGUI>();
 
         strengthAddButton = statsPanel.Find("Strength").Find("Increase Button").GetComponent<Button>();
         agilityAddButton = statsPanel.Find("Agility").Find("Increase Button").GetComponent<Button>();
@@ -87,7 +67,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void SetStatTexts()
     {
-        levelText.SetText(string.Format("Level: {0}", playerExperienceManager.level));
+        levelText.SetText(string.Format("Level: {0}", level));
         if (pointsToAdd > 0)
         {
             addPointsText.gameObject.SetActive(true);
@@ -108,74 +88,25 @@ public class PlayerStatsManager : MonoBehaviour
         intelligenceText.SetText(string.Format("Intelligence: {0}", intelligence.value));
         attackDamageText.SetText(string.Format("Attack damage: {0}", attackDamage.value));
         defenceText.SetText(string.Format("Defence: {0}", defence.value));
+        healthText.SetText(string.Format("Health: {0}", health.value));
+        manaText.SetText(string.Format("Mana: {0}", mana.value));
     }
 
-    public void AddStatBonus(StatBonus bonus)
+    public override void AddStatBonus(StatBonus bonus)
     {
-        switch (bonus.type)
-        {
-            case StatType.Strength:
-                strength.AddModifier(bonus.modifier);
-                break;
-            case StatType.Agility:
-                agility.AddModifier(bonus.modifier);
-                break;
-            case StatType.Intelligence:
-                intelligence.AddModifier(bonus.modifier);
-                break;
-            case StatType.AttackDamage:
-                attackDamage.AddModifier(bonus.modifier);
-                break;
-            case StatType.Defence:
-                defence.AddModifier(bonus.modifier);
-                break;
-        }
+        base.AddStatBonus(bonus);
         SetStatTexts();
     }
-    public void RemoveStatBonus(StatBonus bonus)
+    public override void RemoveStatBonus(StatBonus bonus)
     {
-        switch (bonus.type)
-        {
-            case StatType.Strength:
-                strength.RemoveModifier(bonus.modifier);
-                break;
-            case StatType.Agility:
-                agility.RemoveModifier(bonus.modifier);
-                break;
-            case StatType.Intelligence:
-                intelligence.RemoveModifier(bonus.modifier);
-                break;
-            case StatType.AttackDamage:
-                attackDamage.RemoveModifier(bonus.modifier);
-                break;
-            case StatType.Defence:
-                defence.RemoveModifier(bonus.modifier);
-                break;
-        }
+        base.RemoveStatBonus(bonus);
         SetStatTexts();
     }
     public void IncreaseBaseStat(StatType statType)
     {
         if (pointsToAdd > 0)
         {
-            switch (statType)
-            {
-                case StatType.Strength:
-                    strength.AddToBaseStat(1);
-                    break;
-                case StatType.Agility:
-                    agility.AddToBaseStat(1);
-                    break;
-                case StatType.Intelligence:
-                    intelligence.AddToBaseStat(1);
-                    break;
-                case StatType.AttackDamage:
-                    attackDamage.AddToBaseStat(1);
-                    break;
-                case StatType.Defence:
-                    defence.AddToBaseStat(1);
-                    break;
-            }
+            base.AddToBaseStat(statType, 1);
             pointsToAdd--;
         }
         SetStatTexts();
@@ -186,9 +117,10 @@ public class PlayerStatsManager : MonoBehaviour
         return string.Format("Stats: \n strength: {0} \n agility: {1} \n intelligence {2} \n attack damage: {3} \n defence {4}", strength.value, agility.value, intelligence.value, attackDamage.value, defence.value);
     }
 
-    public void IncreasePointsToAdd(int amount)
+    public override void LevelUp()
     {
-        pointsToAdd += amount;
+        base.LevelUp();
+        pointsToAdd += statPointsInLevelUp;
         SetStatTexts();
     }
 }

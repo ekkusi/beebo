@@ -21,7 +21,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 change = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 
-        if (change != Vector3.zero)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stateManager.ChangeState(PlayerState.HeroHit);
+        }
+        else if (change != Vector3.zero)
         {
             MovePlayer(change);
             stateManager.ChangeState(PlayerState.HeroWalk);

@@ -12,19 +12,19 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
     private RectTransform itemsPanel;
     private bool isDirty = true;
 
-    public void Awake()
+    public virtual void Awake()
     {
         InitializeInventory();
     }
 
-    public void Start()
+    public virtual void Start()
     {
         itemsPanel = inventoryPanel.Find("Items").GetComponent<RectTransform>();
         CreatePanelContent();
         CloseInventory();
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (inventory == null)
         {

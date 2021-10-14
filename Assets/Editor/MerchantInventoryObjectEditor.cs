@@ -1,4 +1,4 @@
 ﻿using UnityEditor;
 
-[CustomEditor(typeof(MerchantInventoryObject))]
+// [CustomEditor(typeof(MerchantInventoryObject))]
 public class MerchantInventoryObjectEditor : InventoryObjectEditor {}

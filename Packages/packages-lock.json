@@ -7,9 +7,15 @@
       "dependencies": {},
       "hash": "ac1f508240fb752b1f9d7c222c231d7f2a33df87"
     },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.2d.tilemap": {
       "version": "1.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "builtin",
       "dependencies": {}
     },
@@ -101,6 +107,13 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "com.vladfaust.unitywakatime": {
+      "version": "https://github.com/vladfaust/unity-wakatime.git#package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4dedbeac2e2d61c5c892e517728d2c4c74ce0acc"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

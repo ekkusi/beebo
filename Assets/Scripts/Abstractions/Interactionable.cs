@@ -18,7 +18,7 @@ public abstract class Interactionable : MonoBehaviour
         }
     }
 
-    public void Start()
+    public virtual void Awake()
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }

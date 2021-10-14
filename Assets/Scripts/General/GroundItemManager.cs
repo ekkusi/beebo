@@ -3,29 +3,25 @@
 [RequireComponent(typeof(SpriteRenderer))]
 public class GroundItemManager : Interactionable
 {
-    public ItemObject item;
+    [SerializeField]
+    private ItemObject item;
     public int amount = 1;
     private SpriteRenderer spriteRenderer;
     private PlayerInventoryManager inventoryManager;
 
-    new void Start()
+    public override void Awake()
     {
-        base.Start();
-        inventoryManager = GameObject.Find("PlayerInventory").GetComponent<PlayerInventoryManager>();
+        base.Awake();
+        Debug.Log("AWaking ground item");
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        inventoryManager = GameObject.Find("Player").GetComponent<PlayerInventoryManager>();
+        UpdateSprite();
     }
     void OnValidate()
     {
         // Remove error coming when playing
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null && item != null)
-        {
-            spriteRenderer.sprite = item.sprite;
-        }
-    }
-    public void Awake()
-    {
-        // This will activate on play, not OnValidate
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateSprite();
     }
 
     public override void Interact()
@@ -43,4 +39,21 @@ public class GroundItemManager : Interactionable
         TooltipManager.ShowtoolTip(string.Format("{0} ({1}) \nPick up (space)", item.name, amount), positionOnScreen);
     }
 
+    public static void InstantiateGroundItem(ItemObject item, Vector3 position, int amount = 1)
+    {
+        GameObject obj = Instantiate(PrefabManager.GroundItemPrefab, position, Quaternion.identity);
+        obj.name = item.name;
+        GroundItemManager itemManager = obj.GetComponent<GroundItemManager>();
+        itemManager.item = item;
+        itemManager.amount = amount;
+        itemManager.UpdateSprite();
+    }
+
+    public void UpdateSprite()
+    {
+        if (spriteRenderer != null && item != null)
+        {
+            spriteRenderer.sprite = item.sprite;
+        }
+    }
 }

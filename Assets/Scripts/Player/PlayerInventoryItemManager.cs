@@ -6,12 +6,14 @@ using UnityEngine.EventSystems;
 public class PlayerInventoryItemManager : MonoBehaviour, IPointerClickHandler // 2
 {
     private PlayerEquipmentManager equipmentManager;
+    private PlayerInventoryManager inventoryManager;
     public PlayerInventorySlot slot;
     private bool isHovering = false;
     // Start is called before the first frame update
     void Start()
     {
-        equipmentManager = transform.parent.parent.parent.parent.GetComponentInChildren<PlayerEquipmentManager>();
+        equipmentManager = GameObject.Find("Player").GetComponent<PlayerEquipmentManager>();
+        inventoryManager = GameObject.Find("Player").GetComponent<PlayerInventoryManager>();
     }
 
     // Update is called once per frame
@@ -23,10 +25,14 @@ public class PlayerInventoryItemManager : MonoBehaviour, IPointerClickHandler //
         {
             isHovering = true;
             MerchantStoreManager activeStoreManager = MerchantStoreManager.activeManager;
-            string message = slot.item.itemType == ItemType.Equipment ? slot.item.ToString("Equip (click) \n\n") : slot.item.ToString();
+            string message = slot.item.ToString("Drop (click) \n\n");
             if (activeStoreManager != null && slot.item.isSellable)
             {
                 message = slot.item.ToString(string.Format("Sell ({0}\n\n", activeStoreManager.GetSellPrice(slot.item)));
+            }
+            else if (equipmentManager.isActive)
+            {
+                message = slot.item.itemType == ItemType.Equipment ? slot.item.ToString("Equip (click) \n\n") : slot.item.ToString();
             }
             TooltipManager.ShowtoolTip(message);
         }
@@ -45,6 +51,12 @@ public class PlayerInventoryItemManager : MonoBehaviour, IPointerClickHandler //
         {
             Debug.Log("Selling item");
             activeStoreManager.SellItem(new MerchantInventorySlot(slot.item, slot.amount));
+        }
+        else if (!equipmentManager.isActive)
+        {
+            Debug.Log("Dropping item");
+            GroundItemManager.InstantiateGroundItem(slot.item, inventoryManager.transform.position, slot.amount);
+            inventoryManager.RemoveItem(slot);
         }
         else if (slot.item.itemType == ItemType.Equipment)
         {

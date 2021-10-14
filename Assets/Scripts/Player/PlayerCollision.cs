@@ -10,15 +10,6 @@ public class PlayerCollision : MonoBehaviour
 
     private const int ITEM_CHECK_RADIUS = 100;
 
-
-    private void Start()
-    {
-    }
-
-    private void Update()
-    {
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         // SceneManager.LoadScene(other.name);

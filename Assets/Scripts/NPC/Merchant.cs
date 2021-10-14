@@ -6,9 +6,9 @@ public class Merchant : Interactionable
 {
     private MerchantStoreManager storeManager;
 
-    new void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         storeManager = transform.Find("Merchant UI").GetComponentInChildren<MerchantStoreManager>();
     }
 

@@ -5,14 +5,14 @@ public abstract class InventoryObjectEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        serializedObject.Update();
+        // serializedObject.Update();
 
-        SerializedProperty listProp = serializedObject.FindProperty("slots");    
-        DisplayArray(listProp);          
+        // SerializedProperty listProp = serializedObject.FindProperty("slots");
+        // DisplayArray(listProp);          
 
-        serializedObject.ApplyModifiedProperties();
+        // serializedObject.ApplyModifiedProperties();
     }
-    private void DisplayArray(SerializedProperty array, string caption=null)
+    private void DisplayArray(SerializedProperty array, string caption = null)
     {
         EditorGUILayout.LabelField(caption ?? array.name);
         int size = array.arraySize;

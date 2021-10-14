@@ -105,11 +105,13 @@ public abstract class InventoryManager<SlotType> : MonoBehaviour where SlotType 
 
     public void RemoveItem(string itemName)
     {
-        // GameObject item = itemsDisplayed[itemName];
         inventory.RemoveItem(itemName);
         isDirty = true;
-        // Destroy(item);
-        // itemsDisplayed.Remove(item.name);
+    }
+    public void RemoveItem(SlotType slot)
+    {
+        inventory.RemoveItem(slot);
+        isDirty = true;
     }
 
     public void AddItem(SlotType slot)

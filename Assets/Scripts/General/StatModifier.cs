@@ -41,6 +41,12 @@ public struct StatBonus
                 return "Attack Damage";
             case StatType.Defence:
                 return "Defence";
+            case StatType.AttackSpeed:
+                return "Attack speed";
+            case StatType.Health:
+                return "Health";
+            case StatType.Mana:
+                return "Mana";
         }
         return "Unknown";
     }

@@ -12,60 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0096bcc7b826a41668536353d71cc734, type: 3}
   m_Name: Player Inventory
   m_EditorClassIdentifier: 
-  slots:
-  - item: {fileID: 11400000, guid: 2eb2534a8305c37f19e40d8b90024b42, type: 2}
-    amount: 50
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 1
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
+  someFloat: 0
+  playerSlots:
+    array:
+    - item: {fileID: 11400000, guid: 2eb2534a8305c37f19e40d8b90024b42, type: 2}
+      amount: 50

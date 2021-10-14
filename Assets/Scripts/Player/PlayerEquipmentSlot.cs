@@ -15,7 +15,7 @@ public class PlayerEquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
-        equipmentManager = transform.parent.parent.GetComponent<PlayerEquipmentManager>();
+        equipmentManager = GameObject.Find("Player").GetComponent<PlayerEquipmentManager>();
     }
     // Update is called once per frame
     void Update()

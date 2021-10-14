@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCollision))]
 public class PlayerInteraction : MonoBehaviour
 {
-    Interactionable interactionTarget = null;
+    public Interactionable interactionTarget { get; private set; }= null;
 
     // Update is called once per frame
     void Update()
@@ -25,15 +25,11 @@ public class PlayerInteraction : MonoBehaviour
             interactionTarget?.StopInteraction();
             interactionTarget = null;
         }
-        else if (interactionTargets[0] != interactionTarget)
+        else 
         {
             Debug.Log("Interaction target changed");
             interactionTarget = interactionTargets[0];
             interactionTarget.ShowInteractionTooltip();
-        }
-        if (Input.GetKeyDown("space"))
-        {
-            interactionTarget?.Interact();
         }
     }
 }

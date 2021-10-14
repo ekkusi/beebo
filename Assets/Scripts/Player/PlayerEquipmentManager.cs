@@ -6,11 +6,15 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     public RectTransform equipmentPanel;
     private PlayerInventoryManager inventoryManager;
-    public PlayerStatsManager playerStats;
+    private PlayerStatsManager playerStats;
+    public SpriteRenderer playerWeapon;
+
+    public bool isActive { get { return equipmentPanel.gameObject.activeInHierarchy; } }
 
     void Start()
     {
-        inventoryManager = gameObject.transform.parent.GetComponentInChildren<PlayerInventoryManager>();
+        inventoryManager = GetComponent<PlayerInventoryManager>();
+        playerStats = GetComponent<PlayerStatsManager>();
         if (inventoryManager == null)
         {
             Debug.LogError("No inventory manager found in sibling. Add inventory manager to a sibling of this object for equipment to work properly.");
@@ -47,6 +51,11 @@ public class PlayerEquipmentManager : MonoBehaviour
             if (it.slot == slot)
             {
                 it.Equip(item);
+                if (item is WeaponObject)
+                {
+                    Debug.Log("Changin player weapon sprite");
+                    playerWeapon.sprite = item.sprite;
+                }
                 foreach (StatBonus bonus in item.GetStatBonuses())
                 {
                     playerStats.AddStatBonus(bonus);
@@ -64,6 +73,10 @@ public class PlayerEquipmentManager : MonoBehaviour
             if (it.slot == slot)
             {
                 it.UnEquip();
+                if (item is WeaponObject)
+                {
+                    playerWeapon.sprite = null;
+                }
                 foreach (StatBonus bonus in item.GetStatBonuses())
                 {
                     playerStats.RemoveStatBonus(bonus);
@@ -109,5 +122,11 @@ public class PlayerEquipmentManager : MonoBehaviour
             }
         }
         return items;
+    }
+
+    public EquipmentObject GetEquippedItem(EquipmentSlot slot)
+    {
+        Dictionary<EquipmentSlot, EquipmentObject> items = GetEquippedItems();
+        return items.ContainsKey(slot) ? items[slot] : null;
     }
 }

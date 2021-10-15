@@ -1,3 +1,3 @@
 # beebo
 
-## Live version of progress in [beebo.ekkus.tech](beebo.ekkus.tech)
+## Live version of progress in [beebo.ekkus.tech](https://beebo.ekkus.tech)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class GroundItemManager : Interactionable
@@ -12,9 +13,7 @@ public class GroundItemManager : Interactionable
     public override void Awake()
     {
         base.Awake();
-        Debug.Log("AWaking ground item");
         spriteRenderer = GetComponent<SpriteRenderer>();
-        inventoryManager = GameObject.Find("Player").GetComponent<PlayerInventoryManager>();
         UpdateSprite();
     }
     void OnValidate()
@@ -27,7 +26,7 @@ public class GroundItemManager : Interactionable
     public override void Interact()
     {
         inventoryManager.AddItem(new PlayerInventorySlot(item, amount));
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
     public override void StopInteraction()
     {
@@ -55,5 +54,11 @@ public class GroundItemManager : Interactionable
         {
             spriteRenderer.sprite = item.sprite;
         }
+    }
+
+
+    public void SetPlayer(GameObject player)
+    {
+        inventoryManager = player.GetComponent<PlayerInventoryManager>();
     }
 }

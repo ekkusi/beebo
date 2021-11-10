@@ -1,21 +1,43 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
+    private string oldScene;
+    private string currentScene;
     private string nextExitDoorwayName;
-    public void CustomLoadScene(string newScene, string sceneExitDoorwayName)
+    private bool loadingScene = false;
+    public void CustomLoadSceneStart(string newScene, string sceneExitDoorwayName)
     {
         nextExitDoorwayName = sceneExitDoorwayName;
-        SceneManager.LoadScene(newScene);
-        // player.transform.position = newPlayerPos;
+        Debug.Log("Loading (start) scene: " + newScene);
+        OnSceneLoaded(SceneManager.GetSceneByName(newScene), LoadSceneMode.Single);
+    }
+    public void CustomLoadScene(string newScene, string sceneExitDoorwayName)
+    {
+        if (!loadingScene)
+        {
+            loadingScene = true;
+            oldScene = SceneManager.GetActiveScene().name;
+            currentScene = newScene;
+            nextExitDoorwayName = sceneExitDoorwayName;
+            Debug.Log("Loading scene: " + newScene);
+            Scene scene = SceneManager.GetSceneByName(newScene);
+            PhotonNetwork.LoadLevel(SceneUtil.GetSceneIndexByName(newScene));
+        }
+
+        // SceneManager.LoadScene(newScene, LoadSceneMode.Single);
     }
 
     void OnEnable()
     {
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -26,25 +48,63 @@ public class SceneLoader : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (nextExitDoorwayName != null)
+        Debug.Log("Scene loaded: " + scene.name + " player: " + player);
+        loadingScene = false;
+        if (player != null)
         {
-            GameObject[] exitDoorways = GameObject.FindGameObjectsWithTag("ExitDoorway");
-            Vector3? newPos = null;
-            foreach (GameObject exitDoorway in exitDoorways)
+            if (nextExitDoorwayName != null && player != null)
             {
-                if (exitDoorway.name == nextExitDoorwayName)
+                GameObject[] exitDoorways = GameObject.FindGameObjectsWithTag("ExitDoorway");
+                Vector3? newPos = null;
+                foreach (GameObject exitDoorway in exitDoorways)
                 {
-                    newPos = exitDoorway.transform.position;
+                    if (exitDoorway.name == nextExitDoorwayName)
+                    {
+                        newPos = exitDoorway.transform.position;
+                    }
+                }
+                if (newPos != null)
+                {
+                    player.transform.position = (Vector3)newPos;
+                }
+                else
+                {
+                    Debug.LogError("No matching exit door found in scene: " + scene.name + ". You should add a ExitDoorway and give it's name to the EnterDoorway you're loading this scene from.");
                 }
             }
-            if (newPos != null)
+
+            GameObject[] groundItems = GameObject.FindGameObjectsWithTag("GroundItem");
+            foreach (GameObject obj in groundItems)
             {
-                player.transform.position = (Vector3)newPos;
-            }
-            else
-            {
-                Debug.LogError("No matching exit door found in scene: " + scene.name + ". You should add a ExitDoorway and give it's name to the EnterDoorway you're loading this scene from.");
+                GroundItemManager itemManager = obj.GetComponent<GroundItemManager>();
+                itemManager.SetPlayer(player);
             }
         }
+
+        if (player != null)
+        {
+            Debug.Log("sending player loaded level: player: " + PhotonNetwork.LocalPlayer);
+            PhotonView playerView = player.GetComponent<PhotonView>();
+            object[] data = new object[]
+           {
+              player.transform.position, player.transform.rotation, playerView.ViewID, PhotonNetwork.LocalPlayer.UserId, oldScene, currentScene
+           };
+
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+            {
+                Receivers = ReceiverGroup.Others,
+            };
+
+
+            bool eventResult = PhotonNetwork.RaiseEvent(EventHandler.SceneChangeEvent, data, raiseEventOptions, SendOptions.SendReliable);
+            Debug.Log("Raise event result : " + eventResult);
+            // PhotonView view = player.GetComponent<PhotonView>();
+            // view.RPC("PlayerLoadedLevel", RpcTarget.Others, PhotonNetwork.LocalPlayer, oldScene, currentScene);
+        }
+    }
+
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
     }
 }

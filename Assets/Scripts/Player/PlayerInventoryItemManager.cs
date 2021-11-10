@@ -12,8 +12,10 @@ public class PlayerInventoryItemManager : MonoBehaviour, IPointerClickHandler //
     // Start is called before the first frame update
     void Start()
     {
-        equipmentManager = GameObject.Find("Player").GetComponent<PlayerEquipmentManager>();
-        inventoryManager = GameObject.Find("Player").GetComponent<PlayerInventoryManager>();
+        GameObject player = GameObjUtils.GetParentByTagNameRecursive(gameObject, "Player");
+        equipmentManager = player.GetComponent<PlayerEquipmentManager>();
+
+        inventoryManager = player.GetComponent<PlayerInventoryManager>();
     }
 
     // Update is called once per frame

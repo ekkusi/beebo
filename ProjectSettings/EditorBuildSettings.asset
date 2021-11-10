@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 4354cfb149629762abb1a007c5ce858d
+  - enabled: 1
     path: Assets/Scenes/Fisander/Fisander.unity
     guid: eafaf1144b151ac40ab2548cf8f50432
   - enabled: 1

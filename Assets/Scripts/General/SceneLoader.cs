@@ -27,8 +27,6 @@ public class SceneLoader : MonoBehaviour
             oldScene = SceneManager.GetActiveScene().name;
             currentScene = newScene;
             nextExitDoorwayName = sceneExitDoorwayName;
-            Debug.Log("Loading scene: " + newScene);
-            Scene scene = SceneManager.GetSceneByName(newScene);
             PhotonNetwork.LoadLevel(SceneUtil.GetSceneIndexByName(newScene));
         }
 
@@ -48,7 +46,6 @@ public class SceneLoader : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene loaded: " + scene.name + " player: " + player);
         loadingScene = false;
         if (player != null)
         {
@@ -83,7 +80,6 @@ public class SceneLoader : MonoBehaviour
 
         if (player != null)
         {
-            Debug.Log("sending player loaded level: player: " + PhotonNetwork.LocalPlayer);
             PhotonView playerView = player.GetComponent<PhotonView>();
             object[] data = new object[]
            {
@@ -96,8 +92,7 @@ public class SceneLoader : MonoBehaviour
             };
 
 
-            bool eventResult = PhotonNetwork.RaiseEvent(EventHandler.SceneChangeEvent, data, raiseEventOptions, SendOptions.SendReliable);
-            Debug.Log("Raise event result : " + eventResult);
+            PhotonNetwork.RaiseEvent((byte)CustomEvents.SceneChange, data, raiseEventOptions, SendOptions.SendReliable);
             // PhotonView view = player.GetComponent<PhotonView>();
             // view.RPC("PlayerLoadedLevel", RpcTarget.Others, PhotonNetwork.LocalPlayer, oldScene, currentScene);
         }

@@ -8,46 +8,53 @@ using UnityEngine.SceneManagement;
 
 public enum CustomEvents
 {
-    SceneChange
+    SceneChange,
+    DestroyObject
 }
 public class EventHandler : MonoBehaviour, IOnEventCallback
 {
-    public const byte SceneChangeEvent = 1;
     private void OnEnable()
     {
-        Debug.Log("Hooking photon callback");
-        // PhotonNetwork.AddCallbackTarget(this);
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
     }
 
     private void OnDisable()
     {
-        PhotonNetwork.RemoveCallbackTarget(this);
         PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
     }
     public void OnEvent(EventData photonEvent)
     {
-        Debug.Log("Received player loaded level on client: " + PhotonNetwork.LocalPlayer.UserId);
-        if (photonEvent.Code == SceneChangeEvent)
+        object[] data = (object[])photonEvent.CustomData;
+        switch (photonEvent.Code)
         {
-            object[] data = (object[])photonEvent.CustomData;
+            case (byte)CustomEvents.SceneChange:
 
-            string newScene = (string)data[5];
-            string oldScene = (string)data[4];
-            string playerId = (string)data[3];
-            Debug.Log("Player id : " + playerId);
-            string receiverScene = SceneManager.GetActiveScene().name;
-            Debug.Log("Client scene: " + receiverScene + ", sender new scene: " + newScene);
-            if (oldScene == receiverScene)
-            {
-                Debug.Log("Destroying obj: " + playerId);
-                Destroy(GameObject.Find(playerId));
-            }
-            if (newScene == receiverScene)
-            {
-                Debug.Log("Creating obj: " + playerId);
-                GameObject playerObj = GeneralManager.InstantiatePlayer(playerId, (Vector3)data[0], (Quaternion)data[1], (int)data[2]);
-            }
+                string newScene = (string)data[5];
+                string oldScene = (string)data[4];
+                string playerId = (string)data[3];
+                string receiverScene = SceneManager.GetActiveScene().name;
+                if (oldScene == receiverScene)
+                {
+                    Destroy(GameObject.Find(playerId));
+                }
+                if (newScene == receiverScene)
+                {
+                    GeneralManager.InstantiatePlayer(playerId, (Vector3)data[0], (Quaternion)data[1], (int)data[2]);
+                }
+                break;
+            case (byte)CustomEvents.DestroyObject:
+                Debug.Log("Received message to destroy obj");
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonView view = PhotonNetwork.GetPhotonView((int)data[0]);
+                    if (view != null)
+                    {
+                        Debug.Log("Destroying obj: " + view.ViewID);
+                        PhotonNetwork.Destroy(view);
+                    }
+                }
+                break;
+
         }
     }
 }

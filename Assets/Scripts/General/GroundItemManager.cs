@@ -1,4 +1,6 @@
-﻿using Photon.Pun;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -9,6 +11,7 @@ public class GroundItemManager : Interactionable
     public int amount = 1;
     private SpriteRenderer spriteRenderer;
     private PlayerInventoryManager inventoryManager;
+    private PhotonView view;
 
     public override void Awake()
     {
@@ -16,6 +19,11 @@ public class GroundItemManager : Interactionable
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateSprite();
     }
+    private void Start()
+    {
+        view = GetComponent<PhotonView>();
+    }
+
     void OnValidate()
     {
         // Remove error coming when playing
@@ -26,8 +34,13 @@ public class GroundItemManager : Interactionable
     public override void Interact()
     {
         inventoryManager.AddItem(new PlayerInventorySlot(item, amount));
-        PhotonNetwork.Destroy(gameObject);
+        object[] data = new object[] {
+            view.ViewID,
+        };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+        PhotonNetwork.RaiseEvent((byte)CustomEvents.SceneChange, data, raiseEventOptions, SendOptions.SendReliable);
     }
+
     public override void StopInteraction()
     {
         TooltipManager.HideTooltip();

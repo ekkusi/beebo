@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerStateManager), typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback
+public class PlayerController : MonoBehaviourPun
 {
     private Rigidbody2D rigidBody;
     private PlayerStateManager stateManager;
@@ -11,29 +11,23 @@ public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback
     private PlayerWeaponController weaponController;
     private PlayerInteraction playerInteraction;
     private SpriteRenderer spriteRenderer;
-    private PhotonView view;
     private float immortalTimer = 0f;
     public bool canTakeDamage { get; private set; } = true;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Player start");
         rigidBody = GetComponent<Rigidbody2D>();
         stateManager = GetComponent<PlayerStateManager>();
         statsManager = GetComponent<PlayerStatsManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         weaponController = GetComponentInChildren<PlayerWeaponController>();
         playerInteraction = GetComponent<PlayerInteraction>();
-        view = GetComponent<PhotonView>();
-
-        // GeneralManager generalManager = GameObject.Find("DDOL").GetComponent<GeneralManager>();
-        // generalManager.InitializePlayer(gameObject);
     }
 
 
     void Update()
     {
-        if (view.IsMine)
+        if (photonView.IsMine)
         {
 
             if (!stateManager.isStateLocked)
@@ -65,7 +59,7 @@ public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback
     // Update by physics changes is called once per frame
     void FixedUpdate()
     {
-        if (view.IsMine)
+        if (photonView.IsMine)
         {
             rigidBody.velocity = Vector2.zero;
             if (!stateManager.isStateLocked)
@@ -82,30 +76,6 @@ public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback
                 }
             }
 
-        }
-    }
-
-    [PunRPC]
-    private void PlayerLoadedLevel(Photon.Realtime.Player player, string previousScene, string newScene)
-    {
-        Debug.Log("Recevied from player: " + player.UserId);
-        Debug.Log("Recevied RPC PlayerLoadedLevel, prev scene: " + previousScene + ", new scene: " + newScene);
-        GameObject playerObj = (GameObject)player.TagObject;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Is master client");
-            if (playerObj != null)
-            {
-                Debug.Log("Matching player obj found: !" + playerObj.name);
-                if (newScene == gameObject.scene.name)
-                {
-                    // PhotonNetwork.Instantiate("Player", playerObj.transform.position, playerObj.transform.rotation);
-                }
-                else
-                {
-                    PhotonNetwork.Destroy(playerObj);
-                }
-            }
         }
     }
 
@@ -131,11 +101,5 @@ public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback
         float attackSpeed = statsManager.GetAttackSpeed();
         weaponController.ToggleWeaponHitBox(true, attackSpeed);
         stateManager.TriggerStateForLength(PlayerState.HeroHit, attackSpeed);
-    }
-
-    void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
-    {
-        gameObject.name = info.Sender.UserId;
-        info.Sender.TagObject = gameObject;
     }
 }

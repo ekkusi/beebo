@@ -18,6 +18,7 @@ public class TooltipManager : MonoBehaviour
     private Vector3 tooltipPosition;
     void Awake()
     {
+        Debug.Log("Awaking tooltipmanager");
         _instance = this;
 
         backgroundRect = transform.Find("Background").GetComponent<RectTransform>();
@@ -85,6 +86,7 @@ public class TooltipManager : MonoBehaviour
 
     public static void ShowtoolTip(string text)
     {
+        Debug.Log("Showing tooltip");
         _instance.ShowTooltip_private(text, Input.mousePosition);
     }
 

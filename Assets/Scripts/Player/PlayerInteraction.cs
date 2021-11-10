@@ -1,35 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerCollision))]
-public class PlayerInteraction : MonoBehaviour
+public class PlayerInteraction : MonoBehaviourPun
 {
-    public Interactionable interactionTarget { get; private set; }= null;
+    public Interactionable interactionTarget { get; private set; } = null;
 
     // Update is called once per frame
     void Update()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(gameObject.transform.position, 0.25f, LayerMask.NameToLayer("Ground"));
-        List<Interactionable> interactionTargets = new List<Interactionable>();
-        foreach (var hitCollider in hitColliders)
+        if (photonView.IsMine)
         {
-            if (hitCollider.gameObject.CompareTag("GroundItem") || hitCollider.gameObject.CompareTag("NPC"))
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(gameObject.transform.position, 0.25f, LayerMask.NameToLayer("Ground"));
+            List<Interactionable> interactionTargets = new List<Interactionable>();
+            foreach (var hitCollider in hitColliders)
             {
-                interactionTargets.Add(hitCollider.gameObject.GetComponent<Interactionable>());
-                Debug.Log("Hit interaction collider");
+                if (hitCollider.gameObject.CompareTag("GroundItem") || hitCollider.gameObject.CompareTag("NPC"))
+                {
+                    interactionTargets.Add(hitCollider.gameObject.GetComponent<Interactionable>());
+                }
             }
-        }
-        if (interactionTargets.Count <= 0)
-        {
-            interactionTarget?.StopInteraction();
-            interactionTarget = null;
-        }
-        else 
-        {
-            Debug.Log("Interaction target changed");
-            interactionTarget = interactionTargets[0];
-            interactionTarget.ShowInteractionTooltip();
+            if (interactionTargets.Count <= 0)
+            {
+                interactionTarget?.StopInteraction();
+                interactionTarget = null;
+            }
+            else
+            {
+                interactionTarget = interactionTargets[0];
+                interactionTarget.ShowInteractionTooltip();
+            }
+
         }
     }
 }

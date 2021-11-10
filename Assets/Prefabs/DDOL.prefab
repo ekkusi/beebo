@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 277197797144937611}
   - component: {fileID: 8593118457718436470}
   - component: {fileID: 956638202}
-  - component: {fileID: 7942040685262118603}
+  - component: {fileID: 144912558250760669}
   m_Layer: 0
   m_Name: DDOL
   m_TagString: Untagged
@@ -193,7 +193,7 @@ MonoBehaviour:
   groundItemPrefab: {fileID: 4347087430098220591, guid: 4362a7881b2d3c24597fab2955dfa76b,
     type: 3}
   playerPrefab: {fileID: 0}
---- !u!114 &7942040685262118603
+--- !u!114 &144912558250760669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -11,6 +11,7 @@ public class GeneralManager : MonoBehaviour
     public string initialOutDoorwayName = "VillageStart";
     public bool loadInitialScreenOnStart = true;
     private static GeneralManager instance = null;
+
     void Awake()
     {
         if (instance == null)
@@ -57,7 +58,6 @@ public class GeneralManager : MonoBehaviour
         photonView.ViewID = viewId;
         return player;
     }
-
 
     public void ClientConnected(ulong clientId)
     {

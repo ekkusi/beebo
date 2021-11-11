@@ -34,11 +34,9 @@ public class GroundItemManager : Interactionable
     public override void Interact()
     {
         inventoryManager.AddItem(new PlayerInventorySlot(item, amount));
-        object[] data = new object[] {
-            view.ViewID,
-        };
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
-        PhotonNetwork.RaiseEvent((byte)CustomEvents.SceneChange, data, raiseEventOptions, SendOptions.SendReliable);
+        Destroy(gameObject);
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others, CachingOption = EventCaching.AddToRoomCacheGlobal };
+        PhotonNetwork.RaiseEvent((byte)CustomEvents.DestroyObject, view.ViewID, raiseEventOptions, SendOptions.SendReliable);
     }
 
     public override void StopInteraction()

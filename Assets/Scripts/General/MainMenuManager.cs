@@ -30,6 +30,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Creating room: " + createInput.text);
         PhotonNetwork.CreateRoom(createInput.text, new RoomOptions { MaxPlayers = roomSize });
+        // PhotonNetwork.JoinRoom(createInput.text);
     }
 
     public void StartAsClient()

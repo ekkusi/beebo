@@ -89,6 +89,7 @@ public class SceneLoader : MonoBehaviour
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions
             {
                 Receivers = ReceiverGroup.Others,
+                CachingOption = EventCaching.AddToRoomCacheGlobal
             };
 
 

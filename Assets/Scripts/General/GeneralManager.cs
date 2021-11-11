@@ -27,7 +27,7 @@ public class GeneralManager : MonoBehaviour
     public void InitializePlayer()
     {
         GameObject player = InstantiatePlayer(PhotonNetwork.LocalPlayer.UserId, Vector3.zero, Quaternion.identity);
-        player.transform.SetParent(transform);
+        // player.transform.SetParent(transform);
         PhotonView photonView = player.GetComponent<PhotonView>();
         bool result = PhotonNetwork.AllocateViewID(photonView);
         PhotonNetwork.LocalPlayer.TagObject = player;

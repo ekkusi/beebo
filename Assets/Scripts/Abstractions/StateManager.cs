@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public abstract class StateManager<StateEnum> : MonoBehaviour
+public abstract class StateManager<StateEnum> : MonoBehaviourPun
 {
     private StateEnum state;
     public bool isStateLocked { get { return stateLockedTime > 0; } }
@@ -34,6 +35,10 @@ public abstract class StateManager<StateEnum> : MonoBehaviour
         {
             animator.Play(newState.ToString(), 0);
             state = newState;
+            if (photonView.IsMine)
+            {
+                photonView.RPC("OnStateChanged", RpcTarget.Others, newState);
+            }
         }
         stateLockedTime = stateLockTime;
     }
@@ -46,6 +51,11 @@ public abstract class StateManager<StateEnum> : MonoBehaviour
         isDefaultAnimSpeed = false;
         SetAnimationSpeed(animSpeed);
         ChangeState(newState, length);
+        if (photonView.IsMine)
+        {
+            photonView.RPC("OnTriggerStateForLength", RpcTarget.Others, newState, length);
+
+        }
     }
 
     public AnimationClip GetAnimationClip(StateEnum state)
@@ -64,5 +74,18 @@ public abstract class StateManager<StateEnum> : MonoBehaviour
     public void SetAnimationSpeed(float speed = 1.0f)
     {
         animator.SetFloat("animSpeed", speed);
+    }
+
+    [PunRPC]
+    protected virtual void OnStateChanged(StateEnum state)
+    {
+        StateManager<StateEnum> stateManager = photonView.gameObject.GetComponent<StateManager<StateEnum>>();
+        stateManager.ChangeState(state);
+    }
+    [PunRPC]
+    protected virtual void OnTriggerStateForLength(StateEnum state, float length)
+    {
+        StateManager<StateEnum> stateManager = photonView.gameObject.GetComponent<StateManager<StateEnum>>();
+        stateManager.TriggerStateForLength(state, length);
     }
 }

@@ -24,11 +24,9 @@ public class EventHandler : MonoBehaviour, IOnEventCallback
     }
     public void OnEvent(EventData photonEvent)
     {
-        Debug.Log("Received event: " + photonEvent);
         switch (photonEvent.Code)
         {
             case (byte)CustomEvents.SceneChange:
-                Debug.Log("Received scene change message");
                 object[] data = (object[])photonEvent.CustomData;
                 string newScene = (string)data[5];
                 string oldScene = (string)data[4];
@@ -45,16 +43,14 @@ public class EventHandler : MonoBehaviour, IOnEventCallback
                 break;
             case (byte)CustomEvents.DestroyObject:
                 int viewId = (int)photonEvent.CustomData;
-                Debug.Log("Received message to destroy obj");
                 PhotonView view = PhotonNetwork.GetPhotonView(viewId);
                 if (view != null)
                 {
-                    Debug.Log("Destroying obj: " + view.ViewID);
                     Destroy(view.gameObject);
                 }
                 else
                 {
-                    Debug.Log("Obj to destroy not found");
+                    Debug.LogError("Obj to destroy not found");
                 }
                 break;
 

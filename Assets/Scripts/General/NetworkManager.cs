@@ -4,6 +4,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -17,18 +18,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    void Awake()
-    {
-        // #Critical
-        // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
-        // NOTE!! May not be what I want because we need to have players in different scenes
-        // PhotonNetwork.AutomaticallySyncScene = true;
-    }
-
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to region: " + PhotonNetwork.CloudRegion);
-        // PhotonNetwork.JoinRandomRoom();
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            Debug.Log("Starting server manually for dev - making room: 'Room' with max 5 players");
+            PhotonNetwork.CreateRoom("Room", new RoomOptions { MaxPlayers = 5 });
+        }
     }
 
 
@@ -47,8 +44,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        Debug.Log("Joined room, should call injitialize player");
+        Debug.Log("Joined room, should call initialize player");
         generalManager.InitializePlayer();
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,21 +27,28 @@ public class GeneralManager : MonoBehaviour
 
     public void InitializePlayer()
     {
+        Debug.Log("Initializing player");
         GameObject player = InstantiatePlayer(PhotonNetwork.LocalPlayer.UserId, Vector3.zero, Quaternion.identity);
-        // player.transform.SetParent(transform);
+        player.transform.SetParent(transform);
         PhotonView photonView = player.GetComponent<PhotonView>();
-        bool result = PhotonNetwork.AllocateViewID(photonView);
+        PhotonNetwork.AllocateViewID(photonView);
         PhotonNetwork.LocalPlayer.TagObject = player;
-        Debug.Log("Allocate view id success: " + result);
-        Debug.Log("Initializing player and loading scene");
         SceneLoader sceneLoader = GetComponent<SceneLoader>();
         CameraRunner cameraRunner = Camera.main.GetComponent<CameraRunner>();
-        Debug.Log("Setting player to scene loader");
         sceneLoader.SetPlayer(player);
         cameraRunner.SetPlayerToFollow(player.transform);
-        if (loadInitialScreenOnStart)
+        // If not dev build or loadInitialScreenOnStart is set
+        if (!Debug.isDebugBuild || loadInitialScreenOnStart)
         {
             sceneLoader.CustomLoadScene(initialScene, initialOutDoorwayName);
+        }
+        else
+        { // Otherwise get pos from first exit doorway in scene
+            GameObject[] exitDoorways = GameObject.FindGameObjectsWithTag("ExitDoorway");
+            if (exitDoorways.Length > 0)
+            {
+                player.transform.position = exitDoorways[0].transform.position;
+            }
         }
     }
 
